@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from abc import ABC
+from abc import ABC, abstractmethod
 
 
 @dataclass
@@ -7,7 +7,6 @@ class Recurso(ABC):
     __max: int
     __atual: int
     __extra: int = 0
-    
 
     def add(self, valor: int):
         if valor < 0:

@@ -10,15 +10,13 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="#meus-personagens">Meus Personagens</a>
-    </nav>
+    <div id="navbar"></div>
     
     {% block body %}
     
     {% endblock %}
     
+    <script type="module" src="{{ url_for('static', filename='js/pages_builder/base_navbar.js') }}"></script>
     
     <footer>
         <p> Desenvolvedor: Bruno Chevitarese </p>

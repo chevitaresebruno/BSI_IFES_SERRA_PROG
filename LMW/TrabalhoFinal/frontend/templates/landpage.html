@@ -1,46 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escotilha Goblin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/components.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base/navbar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base/section.css') }}">
 </head>
 
-{% extends 'base/base.html' %}
+<body>
+    {% block pernavbar %}
 
-{% block body %}
-    <header>
-        <h1>
-            <span> Gerencie suas Fichas de </span>
-            <span id="T20">
-                Tormenta 20
-            </span>
-            <span> com Facilidade! </span> 
-        </h1>
-        <p>Crie, organize e compartilhe suas fichas de personagem de maneira simples e intuitiva.</p>
-    </header>
+    {% endblock %}
 
-    <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/personagens">Meus Personagens</a>
-    </nav>
+    <div id="navbar"></div>
+    <script type="module" src="{{ url_for('static', filename='js/pages_builder/landpage.js') }}"></script>
 
-    <section id="about">
-        <h2>O que é a Escotilha Goblin?</h2>
-        <p>Escotilha Goblin é uma plataforma open source dedicada aos fãs de Tormenta 20. Por meio de uma aplicação web local, é possível que jogadores e mestres gerenciem suas fichas de personagens de forma prática e eficiente.</p>
-    </section>
+
+    {% block body %}
     
-    <section id="features">
-        <h2>Funcionalidades Principais</h2>
-        <ul>
-            <li>Criação de Fichas Personalizadas</li>
-            <li>Gerenciador de Ficha</li>
-            <li>Compartilhamento Fácil</li>
-        </ul>
-    </section>
+    {% endblock %}
     
-    <section id="testimonials">
-        <h2>O Que Nossos Usuários Dizem</h2>
-        <blockquote>"Com o Escotilha Goblin, gerenciar minhas fichas ficou muito mais fácil! A interface é super prática." - Alguém aí</blockquote>
-        <blockquote>"Adoro poder compartilhar minhas fichas com o grupo de forma tão rápida. Recomendo!" - Outro mano aí</blockquote>
-    </section>
+    <footer>
+        <p> Desenvolvedor: Bruno Chevitarese </p>
+    </footer>
 
-{% endblock %}
+</body>
+</html>
 
