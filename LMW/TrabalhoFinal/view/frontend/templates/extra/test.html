@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Append</title>
+</head>
+<body>
+    <h2 id="meuTitulo">Título Original</h2>
+    <button id="botao">Adicionar Texto</button>
+
+    <script>
+        document.getElementById('botao').addEventListener('click', function() {
+            const h2 = document.getElementById('meuTitulo');
+            const novoTexto = document.createTextNode(' - Texto Adicionado');
+            h2.appendChild(novoTexto);
+        });
+    </script>
+</body>
+</html>

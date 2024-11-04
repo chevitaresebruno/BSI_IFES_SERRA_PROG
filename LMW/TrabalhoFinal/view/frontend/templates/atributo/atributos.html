@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personagem de RPG</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/atributo/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/atributo/atributo.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/atributo/popup.css') }}">
+</head>
+
+<body>
+    <script>
+        const jsonData = {{ data | tojson }};
+        const d20_img = "{{ url_for('static', filename='imgs/d20.png') }}";
+    </script>
+
+    <div class="container" id="atributos">
+        <h1>Atributos do Personagem</h1>
+    </div>
+
+
+    <div id="popup_layer">
+        <div id="overlay"></div>
+        
+        <div id="popup">
+            <h3>Resultado:</h3>
+            <p id="resultDisplay"></p>
+            <button id="close_popup">Fechar</button>
+        </div>
+    </div>
+
+    <script type="module" src="{{ url_for('static', filename='js/atributo/main.js') }}"></script>
+
+</body>
+
+</html>

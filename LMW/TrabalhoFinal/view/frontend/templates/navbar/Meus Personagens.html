@@ -1,0 +1,18 @@
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base/navbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/landpage/section.css') }}">
+</head>
+
+{% extends 'base/base_navbar.html' %}
+
+{% block body %}
+
+    <section id="novo">
+        <h2>O que é a Escotilha Goblin?</h2>
+        <p>Escotilha Goblin é uma plataforma open source dedicada aos fãs de Tormenta 20. Por meio de uma aplicação web local, é possível que jogadores e mestres gerenciem suas fichas de personagens de forma prática e eficiente.</p>
+    </section>
+
+    <button> Adicionar </button>
+
+{% endblock %}
+
