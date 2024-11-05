@@ -6,7 +6,7 @@ home = Blueprint("home", __name__)
 
 @home.route('/')
 def landpage():
-    return render_template("navbar/home/home.html")
+    return render_template("landpage.html")
 
 
 @home.route("/personagens")

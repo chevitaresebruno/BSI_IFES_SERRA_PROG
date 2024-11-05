@@ -16,18 +16,46 @@ export default function navbar_builder(pacote)
 
 async function get_navbar_elements(pacote)
 {
-    const response = (await fetch(`/navbar_elements/${pacote}`)).json();
+    const post_info = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "pacote": pacote })
+    };
+
+    const response = (await fetch('/navbar_elements', post_info)).json();
+
     return response;
 }
 
 
 function menu_builder(pacote, nome, div)
 {
-    console.log(pacote, nome);
     const a = document.createElement("a");
     a.textContent = nome;
-    a.href = `/navbar_option/${pacote}/${nome}`
+
+    a.addEventListener("click", function() { request_builder(pacote, nome).then((output) => { build_by_request(output); }); });
 
     div.appendChild(a);
+}
+
+
+export async function request_builder(pacote, nome)
+{
+    const post_info = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "pacote": pacote, "file": nome })
+    };  
+
+    const response = (await fetch('/navbar_option', post_info)).json();
+
+    return response;
+}
+
+
+export function build_by_request(value)
+{
+    document.getElementById("pre-navbar").innerHTML = value.pre_navbar;
+    document.getElementById("pos-navbar").innerHTML = value.pos_navbar;
 }
 

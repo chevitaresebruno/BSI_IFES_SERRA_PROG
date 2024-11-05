@@ -5,13 +5,29 @@ from __init__ import *
 navbar = Blueprint("navbar", __name__)
 
 
-@navbar.route('/navbar_elements/<string:pacote>', methods=["GET"])
-def navbar_elements(pacote):
-    elementos = [x[:x.find(".html")] for x in listdir(NAVBAR_TEMPLATES_FOLDER / pacote)]
+@navbar.route("/navbar_component")
+def navbar_component():
+    return send_from_directory(COMPONENTS_FOLDER, "navbar.js")
+
+
+@navbar.route("/navbar_elements", methods=["POST"])
+def navbar_elements():
+    pacote = request.json["pacote"]
+
+    elementos = [x for x in listdir(NAVBAR_TEMPLATES_FOLDER / pacote)  if not x.endswith(".html")]
+
     return jsonify(elementos)
 
 
-@navbar.route("/navbar_option/<string:pacote>/<string:file>")
-def navbar_get_html(pacote, file):
-    return render_template(f"navbar/{pacote}/{file}.html")
+@navbar.route("/navbar_option", methods=["POST"])
+def navbar_get_html():
+    pacote, file = request.json["pacote"], request.json["file"]
+    
+    json = {"pre_navbar": "", "pos_navbar": ""}
+
+    for f in listdir(NAVBAR_TEMPLATES_FOLDER / f"{pacote}/{file}"):
+        with open(NAVBAR_TEMPLATES_FOLDER / f"{pacote}/{file}/{f}", "r", encoding='utf-8') as reader:
+            json[f[:f.find(".html")]] = reader.read()
+
+    return jsonify(json)
 
