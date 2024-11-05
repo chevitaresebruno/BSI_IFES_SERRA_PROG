@@ -16,5 +16,5 @@ if __name__ == '__main__':
     main.register_blueprint(personagem)
     main.register_blueprint(navbar)
 
-    main.run(debug=True)
+    main.run(debug=True, host=HOST, port=PORT)
 

@@ -1,3 +1,6 @@
+var pre_navbar_status = false;
+
+
 export default function navbar_builder(pacote)
 {
     const div = document.getElementById("navbar");
@@ -55,7 +58,44 @@ export async function request_builder(pacote, nome)
 
 export function build_by_request(value)
 {
-    document.getElementById("pre-navbar").innerHTML = value.pre_navbar;
-    document.getElementById("pos-navbar").innerHTML = value.pos_navbar;
+    const pre_navbar = document.getElementById("pre-navbar");
+    const navbar = document.getElementById("navbar");    
+    const pos_navbar = document.getElementById("pos-navbar");
+
+    if(!pre_navbar_status)
+    {
+        pre_navbar.style.transition = 'transform 0.5s ease';
+        pre_navbar.style.transform = 'translateY(-100%)';
+
+        setTimeout(() => {
+            pre_navbar.innerHTML = value.pre_navbar;
+            pre_navbar.style.transform = 'translateY(0%)';
+            console.log(pre_navbar.offsetHeight);
+        }, 500);
+        pre_navbar_status = true;
+    }
+    else
+    {
+        pre_navbar.style.transition = 'transform 0.5s ease';
+        pre_navbar.style.transform = 'translateY(0)';
+
+        setTimeout(() => {
+            pre_navbar.innerHTML = value.pre_navbar;
+            pre_navbar.style.transform = 'translateY(-100%)';
+    
+        }, 500);
+
+        pre_navbar_status = false;
+    }
+    
+
+
+    pos_navbar.innerHTML = value.pos_navbar;
 }
 
+function mov_navbar()
+{
+    const pre_navbar = document.getElementById("pre-navbar");
+    const navbar = document.getElementById("navbar");    
+    const pos_navbar = document.getElementById("pos-navbar");
+}

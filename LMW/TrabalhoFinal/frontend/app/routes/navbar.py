@@ -5,11 +5,6 @@ from __init__ import *
 navbar = Blueprint("navbar", __name__)
 
 
-@navbar.route("/navbar_component")
-def navbar_component():
-    return send_from_directory(COMPONENTS_FOLDER, "navbar.js")
-
-
 @navbar.route("/navbar_elements", methods=["POST"])
 def navbar_elements():
     pacote = request.json["pacote"]
