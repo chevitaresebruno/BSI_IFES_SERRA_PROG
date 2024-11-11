@@ -58,19 +58,19 @@ export async function request_builder(pacote, nome)
 
 export function build_by_request(value)
 {
+    const animation = document.getElementById("animation");
     const pre_navbar = document.getElementById("pre-navbar");
     const navbar = document.getElementById("navbar");    
     const pos_navbar = document.getElementById("pos-navbar");
 
     if(!pre_navbar_status)
     {
-        pre_navbar.style.transition = 'transform 0.5s ease';
-        pre_navbar.style.transform = 'translateY(-100%)';
-
+        pre_navbar.innerHTML = value.pre_navbar;
+        animation.style.transition = 'transform 0.5s ease';
+        animation.style.transform = `translateY(-${pre_navbar.offsetHeight}px)`;
+        
         setTimeout(() => {
-            pre_navbar.innerHTML = value.pre_navbar;
-            pre_navbar.style.transform = 'translateY(0%)';
-            console.log(pre_navbar.offsetHeight);
+            animation.style.transform = `translateY(+${pre_navbar.offsetHeight}px)`;
         }, 500);
         pre_navbar_status = true;
     }
