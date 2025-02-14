@@ -1,6 +1,5 @@
 package views.user_case.usuario;
 
-import database.Sistema;
 import database.filters.usuario.AlunoFilter;
 import database.services.usuario.AlunoService;
 import errors.ErroHandller;
@@ -15,11 +14,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
 {
 
     @Override
-    public boolean addModel(Sistema s, Aluno a)
+    public boolean addModel(AlunoService as, Aluno a)
     {
         try
         {
-            return SomeShortcuts.genericAddResponse(s.getAlunoService().addData(a), "Aluno");
+            return SomeShortcuts.genericAddResponse(as.addData(a), "Aluno");
         }
         catch(ErroAtributoNulo e) // TODO: Modificar isso aqui para que o JAVA entenda certo
         {
@@ -35,11 +34,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean updateModel(Sistema s, Aluno m, int where)
+    public boolean updateModel(AlunoService as, Aluno m, int where)
     {
         try
         {
-            return SomeShortcuts.genericUpdateResponse(s.getAlunoService().updateData(m, where), "Aluno");
+            return SomeShortcuts.genericUpdateResponse(as.updateData(m, where), "Aluno");
         }
         catch(ErroAtributoNulo e)
         {
@@ -55,11 +54,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean updateModel(Sistema s, Aluno m, AlunoFilter where)
+    public boolean updateModel(AlunoService as, Aluno m, AlunoFilter where)
     {
         try
         {
-            return SomeShortcuts.genericUpdateResponse(s.getAlunoService().updateData(m, where), "Aluno");
+            return SomeShortcuts.genericUpdateResponse(as.updateData(m, where), "Aluno");
         }
         catch(ErroAtributoNulo e)
         {
@@ -75,11 +74,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean deleteModel(Sistema s, int where)
+    public boolean deleteModel(AlunoService as, int where)
     {
         try
         {
-            if(s.getAlunoService().deleteData(where) != null)
+            if(as.deleteData(where) != null)
             {
                 return SomeShortcuts.genericDeleteResponse(true, "Aluno");
             }
@@ -90,7 +89,7 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", s.getAlunoService().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", as().tamaho()));
         }
         catch(Exception e)
         {
@@ -102,11 +101,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean deleteModel(Sistema s, AlunoFilter where)
+    public boolean deleteModel(AlunoService as, AlunoFilter where)
     {
         try
         {
-            if(s.getAlunoService().deleteData(where) != null)
+            if(as.deleteData(where) != null)
             {
                 return SomeShortcuts.genericDeleteResponse(true, "Aluno");
             }
@@ -121,7 +120,7 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", s.getAlunoService().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", as.tamaho()));
         }
         catch(Exception e)
         {
@@ -133,11 +132,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean getModel(Sistema s, int where)
+    public boolean getModel(AlunoService as, int where)
     {
         try
         {
-            Aluno adm = s.getAlunoService().getData(where);
+            Aluno adm = as.getData(where);
             if(adm != null)
             {
                 UCGerenciarUsuarios.imprimirUsuario(adm);
@@ -150,7 +149,7 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", s.getAlunoService().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", as.tamaho()));
         }
         catch(Exception e)
         {
@@ -162,11 +161,11 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean getModel(Sistema s, AlunoFilter where)
+    public boolean getModel(AlunoService as, AlunoFilter where)
     {
         try
         {
-            Aluno adm = s.getAlunoService().getData(where);
+            Aluno adm = as.getData(where);
             if(adm != null)
             {
                 UCGerenciarUsuarios.imprimirUsuario(adm);
@@ -183,7 +182,7 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", s.getAlunoService().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d alunos cadastrados.", as.tamaho()));
         }
         catch(Exception e)
         {
@@ -195,15 +194,15 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
     }
 
     @Override
-    public boolean listModel(Sistema s)
+    public boolean listModel(AlunoService as)
     {
-        if(s.getAlunoService().tamaho() <= 0)
+        if(as.tamaho() <= 0)
         {
             System.err.println("Atenção, não há Nenhum Aluno Cadastrado");
             return false;
         }
         
-        for(Aluno aluno : s.getAlunoService().listData())
+        for(Aluno aluno : as.listData())
         {
             UCGerenciarUsuarios.imprimirUsuario(aluno);
         }

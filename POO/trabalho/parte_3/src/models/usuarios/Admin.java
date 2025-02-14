@@ -11,6 +11,11 @@ public class Admin extends Usuario
         this.email = email;
     }
 
+    public String getEmail()
+    {
+        return this.email;
+    }
+
     @Override
     public boolean validarAcesso(String s)
     {

@@ -5,6 +5,7 @@ import utils.ScannerHandller;
 public enum DatabaseLoaderEnum
 {
     FIM("FIM"),
+    INDEFINIDO("Undefined"),
     ADIMINISTRADOR("ADM"),
     ALUNO("ALU");
     
@@ -23,6 +24,7 @@ public enum DatabaseLoaderEnum
     public static DatabaseLoaderEnum buildByInput()
     {
         String input = ScannerHandller.getLine();
+        System.out.println("DEBUGGIN " + input);
 
         for(DatabaseLoaderEnum dble : values())
         {
@@ -32,7 +34,7 @@ public enum DatabaseLoaderEnum
             }
         }
 
-        return null;
+        return DatabaseLoaderEnum.INDEFINIDO;
     }
 }
 

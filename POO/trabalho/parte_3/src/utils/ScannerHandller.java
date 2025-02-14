@@ -3,6 +3,7 @@ package utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Locale;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 
@@ -10,6 +11,7 @@ public final class ScannerHandller
 {
     private static Scanner scanner;
     private static boolean initialize = false;
+    private static boolean readingFile = false;
     private static int tail = 0;
     private static boolean loopChecker = true;
     private static String ignoreLine;
@@ -24,6 +26,7 @@ public final class ScannerHandller
             else
             {
                 scanner = new Scanner(new FileInputStream(file)).useLocale(Locale.US);
+                readingFile = true;
 
                 initialize = true;
                 loopChecker = checkLoop;
@@ -54,6 +57,7 @@ public final class ScannerHandller
         {
             initialize = false;
             scanner.close();
+            readingFile = false;
         }
     }
 
@@ -78,13 +82,31 @@ public final class ScannerHandller
         if(initialize)
         {
             System.out.print(message);
-            String input;
+            String input = null;
             
-            do
+            try
             {
-                input = scanner.nextLine();
+                do
+                {
+                    input = scanner.nextLine();
+                }
+                while(input.startsWith(ignoreLine));
             }
-            while(input.startsWith(ignoreLine));
+            catch(IllegalStateException e)
+            {
+                System.err.println("O Scanner foi fechado, algum erro inesperado ocorreu. Inicializando Scanner de Emergência");
+                try (Scanner emergencyScanner = new Scanner(System.in).useLocale(Locale.US))
+                {
+                    do { input = emergencyScanner.nextLine(); } while(input.startsWith(ignoreLine));
+                }                
+            }
+            catch(NoSuchElementException e)
+            {
+                scanner.close();
+                scanner = new Scanner(System.in).useLocale(Locale.US);
+                readingFile = false;
+                return getLine();
+            }
 
             return input; 
         }

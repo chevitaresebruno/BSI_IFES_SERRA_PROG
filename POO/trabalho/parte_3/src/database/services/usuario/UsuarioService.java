@@ -5,7 +5,7 @@ import database.services.AbstractService;
 import models.usuarios.Usuario;
 
 
-public class UsuarioService<Model extends Usuario, ModelFilter extends UsuarioFilter<Model>> extends AbstractService<Model, ModelFilter>
+public class UsuarioService<Model extends Usuario> extends AbstractService<Model>
 {
     public UsuarioService()
     {

@@ -4,7 +4,7 @@ import errors.shared.ErroAtributoNulo;
 import models.pedido.IEstocavel;
 
 
-public class EstocavelController
+public final class EstocavelController
 {
     public static double valorTotal(IEstocavel objeto) throws ErroAtributoNulo
     {

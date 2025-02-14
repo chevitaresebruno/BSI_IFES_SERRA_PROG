@@ -23,15 +23,15 @@ public final class DatabaseLoader
         {
             input = DatabaseLoaderEnum.buildByInput();
 
-            switch (input)
+            switch(input)
             {
-                case DatabaseLoaderEnum.ALUNO -> addAluno(s);
-                case DatabaseLoaderEnum.ADIMINISTRADOR -> addAdm(s);
+                case ALUNO -> addAluno(s);
+                case ADIMINISTRADOR -> addAdm(s);
+                case INDEFINIDO -> System.out.println("Tipo de usuário não implementado.");
+                case FIM -> System.out.println("Dados carregados com sucesso");
             }
         }
         while(input != DatabaseLoaderEnum.FIM);
-    
-        System.out.println("Dados carregados com sucesso");
     }
 
     private static void addAluno(Sistema s)

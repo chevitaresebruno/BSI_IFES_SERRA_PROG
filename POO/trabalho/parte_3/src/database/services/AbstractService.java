@@ -1,16 +1,18 @@
 package database.services;
 
 import database.filters.BaseFilter;
+import database.orders.BaseOrderBy;
 import errors.shared.ErroAtributoNulo;
 import errors.shared.ErroDatabaseVazio;
 import errors.shared.ErroEntidadeNaoEncontrada;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import models.BaseModel;
 
 
 @SuppressWarnings("rawtypes")
-public abstract class AbstractService<Model extends BaseModel, ModelFilter extends BaseFilter<Model>>
+public abstract class AbstractService<Model extends BaseModel>
 {
     protected List<Model> data;    
     protected String databaseName;
@@ -31,9 +33,24 @@ public abstract class AbstractService<Model extends BaseModel, ModelFilter exten
         return this.data;
     }
 
-    public List<Model> listData(ModelFilter where)
+    public List<Model> listData(BaseFilter<Model> where)
     {
         return where.all(this.data);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Model> listData(BaseFilter<Model> where, BaseOrderBy orderBy)
+    {
+        List<Model> lm = where.all(this.data);
+
+        if(!lm.isEmpty())
+        {
+            Collections.sort(lm, orderBy);
+            if(!orderBy.orderAscendin())
+                { Collections.reverse(lm); }
+        }
+
+        return lm;
     }
 
     public Model getData(int index)
@@ -41,7 +58,7 @@ public abstract class AbstractService<Model extends BaseModel, ModelFilter exten
         return this.data.get(index);
     }
 
-    public Model getData(ModelFilter where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroDatabaseVazio
+    public Model getData(BaseFilter<Model> where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroDatabaseVazio
     {
         if(where == null)
         {
@@ -77,7 +94,7 @@ public abstract class AbstractService<Model extends BaseModel, ModelFilter exten
         return true;
     }
 
-    public boolean updateData(Model model, ModelFilter where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada
+    public boolean updateData(Model model, BaseFilter<Model> where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada
     {
         if(model == null)
         {
@@ -100,7 +117,7 @@ public abstract class AbstractService<Model extends BaseModel, ModelFilter exten
         return this.data.remove(where);
     }
 
-    public Model deleteData(ModelFilter where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada
+    public Model deleteData(BaseFilter<Model> where) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada
     {
         if(where ==  null)
         {

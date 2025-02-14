@@ -1,12 +1,11 @@
 package database.services.pedido;
 
-import database.filters.pedido.ProdutoFilter;
 import database.services.AbstractService;
 import errors.shared.ErroAtributoNulo;
 import models.pedido.Produto;
 
 
-public class ProdutoService extends AbstractService<Produto, ProdutoFilter>
+public class ProdutoService extends AbstractService<Produto>
 {
     public ProdutoService()
     {

@@ -3,6 +3,7 @@ package views.user_case.pedido;
 import controller.pedido.PedidoController;
 import database.Sistema;
 import database.filters.pedido.PedidoFilter;
+import database.orders.PedidoOrderBy;
 import errors.ErroHandller;
 import errors.pedido.ErroEstoqueAdicionarNegativo;
 import errors.pedido.ErroEstoqueQuantidadeInvalida;
@@ -56,7 +57,7 @@ public final class UCGerenciarPedido
 
     public static void listarPedidos(Aluno a, Sistema s)
     {
-        List<Pedido> pedidos = s.getPedidosService().listData(new PedidoFilter(a));
+        List<Pedido> pedidos = s.getPedidosService().listData(new PedidoFilter(a), new PedidoOrderBy(false));
         if(pedidos.size() <= 0)
         {
             System.out.println(String.format("%s Sem Pedidos.", a.toString()));
@@ -65,7 +66,7 @@ public final class UCGerenciarPedido
 
         System.out.println(String.format("Pedidos de %s", a.toString()));
 
-        for(Pedido p : s.getPedidosService().listData())
+        for(Pedido p : pedidos)
         {
             System.out.println(String.format("Código do Pedido: %s", p.getCodToString()));
             System.out.println("Produtos:");

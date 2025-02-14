@@ -31,8 +31,6 @@ public final class AdminView implements IMenuView<Admin>
 
         AdminViewEnum op;
 
-        ScannerHandller.init();
-
         do
         {
             op = AdminViewEnum.buildByInput(msg); 
@@ -47,8 +45,6 @@ public final class AdminView implements IMenuView<Admin>
             }
         }
         while (op != AdminViewEnum.QUIT);
-
-        ScannerHandller.close();
     }
 
     protected static void cadAdmin(Sistema s)

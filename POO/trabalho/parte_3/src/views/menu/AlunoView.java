@@ -36,9 +36,6 @@ public class AlunoView implements IMenuView<Aluno>
                      0) Logout.
                      """;
 
-        ScannerHandller.init();
-
-
         do
         {
             op = AlunoViewEnum.buildByInput(msg);
@@ -54,8 +51,6 @@ public class AlunoView implements IMenuView<Aluno>
             }
         }
         while (op != AlunoViewEnum.QUIT);
-
-        ScannerHandller.close();
     }
 
     private static void fazerPedido(Aluno a, Sistema s)

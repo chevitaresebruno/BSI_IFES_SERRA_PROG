@@ -35,11 +35,21 @@ public abstract class Usuario extends BaseModel<String> implements Comparable<Us
     {
         return this.cpf;
     }
+
+    public String getNome()
+    {
+        return this.nome;
+    }
+
+    public String getSenhaHash()
+    {
+        return this.senha;
+    }
     
     @Override
     public String toString()
     {
-        return String.format("NOME: %s - CPF: %s", this.nome, this.cpf);
+        return String.format("%s - %s", this.nome, this.cpf);
     }
 
     @Override

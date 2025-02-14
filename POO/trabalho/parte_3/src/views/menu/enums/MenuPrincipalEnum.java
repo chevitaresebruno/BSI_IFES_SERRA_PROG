@@ -5,6 +5,7 @@ import utils.ScannerHandller;
 
 public enum MenuPrincipalEnum
 {
+    UNDEFINED(-1),
     QUIT(0),
     LOGIN(1);
     
@@ -32,7 +33,7 @@ public enum MenuPrincipalEnum
             }
         }
 
-        return null;
+        return MenuPrincipalEnum.UNDEFINED;
     }
 }
 

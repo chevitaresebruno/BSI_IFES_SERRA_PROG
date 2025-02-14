@@ -22,8 +22,6 @@ public final class MenuPrincipal
 
     public static void menu(Sistema s)
     {
-        ScannerHandller.init();
-
         if(s.sistemaVazio())
         {
             System.out.println("** Inicializando o sistema **");
@@ -45,14 +43,12 @@ public final class MenuPrincipal
 
             switch(op)
             {
-                case MenuPrincipalEnum.QUIT -> { /* Faz Nada */ }
-                case MenuPrincipalEnum.LOGIN -> { login(s); } 
-                default -> System.out.println("Opção inválida. Tente novamente: ");
+                case QUIT -> { System.out.println("Encerrando Aplicativo."); }
+                case LOGIN -> { login(s); } 
+                case UNDEFINED -> System.out.println("Opção inválida. Tente novamente: ");
             }
         }
         while(op != MenuPrincipalEnum.QUIT);
-
-        ScannerHandller.close();
     }   
 
     private static void login(Sistema s)
@@ -71,18 +67,13 @@ public final class MenuPrincipal
             ErroHandller.mensagemDeErro(e);
             return;
         }
-        catch(ErroLoginInvalido e)
-        {
-            ErroHandller.imprimirMensagem(e);
-            return;
-        }
         catch(ErroDatabaseVazio e)
         {
-            System.err.println("Atenção, não há Administradores cadastrados. Reiniciando o Sistema.");
-            System.exit(0);
+            System.err.println("Atenção, erro fatal. Tentou fazer login sem Administradores Cadastrados. Encerrando Programa");
+            System.exit(1);
         }
-        catch (ErroEntidadeNaoEncontrada e)
-            { /* Tenta Fazer Login no Aluno */ }
+        catch(ErroEntidadeNaoEncontrada e)
+            { /* Faz Nada */ }
 
         try
         {
@@ -92,37 +83,37 @@ public final class MenuPrincipal
         {
             ErroHandller.mensagemDeErro(e);
         }
-        catch(ErroEntidadeNaoEncontrada | ErroLoginInvalido | ErroDatabaseVazio e)
+        catch(ErroLoginInvalido e)
         {
             ErroHandller.imprimirMensagem(e);
         }
     }
 
-    private static void loginAdm(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroLoginInvalido, ErroDatabaseVazio
+    private static void loginAdm(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroDatabaseVazio
     {
         Admin a = s.getAdminsService().getData(new AdminFilter(cpf));
+            
         if(a.validarAcesso(senha))
         {
             amd.menu(a, s);
         }
-        else
-        {
-            throw new ErroLoginInvalido();
-        }
     }
 
-    private static void loginAluno(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroLoginInvalido, ErroDatabaseVazio
+    private static void loginAluno(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroLoginInvalido
     {
-        Aluno a = s.getAlunoService().getData(new AlunoFilter(cpf));
-    
-        if(a.validarAcesso(senha))
+        try
         {
-            aluno.menu(a, s);
+            Aluno a = s.getAlunoService().getData(new AlunoFilter(cpf));
+            if(a.validarAcesso(senha))
+            {
+                aluno.menu(a, s);
+            }
+            else { throw new ErroLoginInvalido(); }
         }
-        else
+        catch(ErroEntidadeNaoEncontrada | ErroDatabaseVazio e)
         {
             throw new ErroLoginInvalido();
-        }
+        }    
     }
 }
 
