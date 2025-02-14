@@ -1,13 +1,16 @@
 package views.user_case.usuario;
 
+import database.filters.BaseFilter;
 import database.filters.usuario.AdminFilter;
+import database.services.AbstractService;
 import database.services.usuario.AdministradorService;
 import errors.ErroHandller;
 import errors.shared.ErroAtributoNulo;
 import models.usuarios.Admin;
 import utils.SomeShortcuts;
 
-public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, AdminFilter, AdministradorService>
+
+public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin>
 {
 
     @Override
@@ -17,7 +20,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         {
             return SomeShortcuts.genericAddResponse(as.addData(a), "Administrador");
         }
-        catch(ErroAtributoNulo e) // TODO: Modificar isso aqui para que o JAVA entenda certo
+        catch(ErroAtributoNulo e)
         {
             ErroHandller.mensagemDeErro(e);
         }
@@ -205,5 +208,5 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         }
         return true;
     }
-
 }
+

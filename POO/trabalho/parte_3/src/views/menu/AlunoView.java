@@ -75,7 +75,6 @@ public class AlunoView implements IMenuView<Aluno>
         }
         catch(ErroAtributoNulo | ErroDatabaseVazio e)
         {
-            /* TODO */
             ErroHandller.mensagemDeErro(e);
         }
         catch(ErroEntidadeNaoEncontrada e)

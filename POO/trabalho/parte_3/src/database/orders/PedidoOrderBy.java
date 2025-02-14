@@ -1,9 +1,6 @@
 package database.orders;
 
-import java.util.Comparator;
-
 import errors.shared.ErroAtributoNulo;
-
 import models.pedido.Pedido;
 import views.user_case.pedido.UCGerenciarCarrinho;
 

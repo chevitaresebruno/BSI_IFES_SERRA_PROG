@@ -20,7 +20,7 @@ public class UCGerenciarAluno extends UCGerenciarUsuarios<Aluno, AlunoFilter, Al
         {
             return SomeShortcuts.genericAddResponse(as.addData(a), "Aluno");
         }
-        catch(ErroAtributoNulo e) // TODO: Modificar isso aqui para que o JAVA entenda certo
+        catch(ErroAtributoNulo e)
         {
             ErroHandller.mensagemDeErro(e);
         }

@@ -7,7 +7,6 @@ import errors.shared.ErroAtributoInvalido;
 import models.BaseModel;
 
 
-/* TODO: Sistema de reservas */
 public class Produto extends BaseModel<Integer> implements IEstocavel
 {
     private int qtd;
@@ -67,7 +66,6 @@ public class Produto extends BaseModel<Integer> implements IEstocavel
         return this.valor;
     }
 
-    // TODO: Verificar se esses métodos são relevantes
     public String getName()
     {
         return this.name;
