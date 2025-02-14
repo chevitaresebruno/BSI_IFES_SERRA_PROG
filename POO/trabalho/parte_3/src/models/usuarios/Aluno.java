@@ -1,7 +1,9 @@
 package models.usuarios;
 
+import errors.usuario.ErroInserirSaldoNegativo;
 
-public class Aluno extends Usuario{
+public class Aluno extends Usuario
+{
     private double saldo;
 
     public Aluno(String cpf, String nome, String senha)
@@ -10,10 +12,12 @@ public class Aluno extends Usuario{
         this.saldo = 0;
     }
 
-    public boolean inserirSaldo(double valor)
+    public boolean inserirSaldo(double valor) throws ErroInserirSaldoNegativo
     {
         if(valor < 0)
-            { return false; }
+        {
+            throw new ErroInserirSaldoNegativo();
+        }
         
         this.saldo += valor;
 
@@ -22,6 +26,7 @@ public class Aluno extends Usuario{
 
     public boolean retirarSaldo(double valor)
     {
+        System.out.println(valor);
         if(valor < 0)
             { return false; }
         

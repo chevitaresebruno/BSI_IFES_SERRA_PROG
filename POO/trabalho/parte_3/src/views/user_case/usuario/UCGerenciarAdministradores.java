@@ -3,10 +3,10 @@ package views.user_case.usuario;
 import database.Sistema;
 import database.filters.usuario.AdminFilter;
 import database.services.usuario.AdministradorService;
-import errors.ErrorHandller;
+import errors.ErroHandller;
 import errors.shared.ErroAtributoNulo;
 import models.usuarios.Admin;
-import views.utils.SomeShortcuts;
+import utils.SomeShortcuts;
 
 public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, AdminFilter, AdministradorService>
 {
@@ -16,11 +16,11 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            return SomeShortcuts.genericAddResponse(s.getAdmins().addData(a), "Administrador");
+            return SomeShortcuts.genericAddResponse(s.getAdminsService().addData(a), "Administrador");
         }
         catch(ErroAtributoNulo e) // TODO: Modificar isso aqui para que o JAVA entenda certo
         {
-            ErrorHandller.mensagemDeErro(e);
+            ErroHandller.mensagemDeErro(e);
         }
         catch(Exception e)
         {
@@ -36,11 +36,11 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            return SomeShortcuts.genericUpdateResponse(s.getAdmins().updateData(m, where), "Administrador");
+            return SomeShortcuts.genericUpdateResponse(s.getAdminsService().updateData(m, where), "Administrador");
         }
         catch(ErroAtributoNulo e)
         {
-            ErrorHandller.mensagemDeErro(e);
+            ErroHandller.mensagemDeErro(e);
         }
         catch(Exception e)
         {
@@ -56,11 +56,11 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            return SomeShortcuts.genericUpdateResponse(s.getAdmins().updateData(m, where), "Administrador");
+            return SomeShortcuts.genericUpdateResponse(s.getAdminsService().updateData(m, where), "Administrador");
         }
         catch(ErroAtributoNulo e)
         {
-            ErrorHandller.mensagemDeErro(e);
+            ErroHandller.mensagemDeErro(e);
         }
         catch(Exception e)
         {
@@ -76,7 +76,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            if(s.getAdmins().deleteData(where) != null)
+            if(s.getAdminsService().deleteData(where) != null)
             {
                 return SomeShortcuts.genericDeleteResponse(true, "Administrador");
             }
@@ -87,7 +87,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdmins().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdminsService().tamaho()));
         }
         catch(Exception e)
         {
@@ -103,7 +103,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            if(s.getAdmins().deleteData(where) != null)
+            if(s.getAdminsService().deleteData(where) != null)
             {
                 return SomeShortcuts.genericDeleteResponse(true, "Administrador");
             }
@@ -114,11 +114,11 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         }
         catch(ErroAtributoNulo e)
         {
-            ErrorHandller.mensagemDeErro(e);
+            ErroHandller.mensagemDeErro(e);
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdmins().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdminsService().tamaho()));
         }
         catch(Exception e)
         {
@@ -134,7 +134,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            Admin adm = s.getAdmins().getData(where);
+            Admin adm = s.getAdminsService().getData(where);
             if(adm != null)
             {
                 UCGerenciarUsuarios.imprimirUsuario(adm);
@@ -147,7 +147,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdmins().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdminsService().tamaho()));
         }
         catch(Exception e)
         {
@@ -163,7 +163,7 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     {
         try
         {
-            Admin adm = s.getAdmins().getData(where);
+            Admin adm = s.getAdminsService().getData(where);
             if(adm != null)
             {
                 UCGerenciarUsuarios.imprimirUsuario(adm);
@@ -176,11 +176,11 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
         }
         catch(ErroAtributoNulo e)
         {
-            ErrorHandller.mensagemDeErro(e);
+            ErroHandller.mensagemDeErro(e);
         }
         catch(IndexOutOfBoundsException e)
         {
-            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdmins().tamaho()));
+            System.err.println(String.format("Atenção, existem somente %d administradores cadastrados.", s.getAdminsService().tamaho()));
         }
         catch(Exception e)
         {
@@ -194,13 +194,13 @@ public class UCGerenciarAdministradores extends UCGerenciarUsuarios<Admin, Admin
     @Override
     public boolean listModel(Sistema s)
     {
-        if(s.getAdmins().tamaho() <= 0)
+        if(s.getAdminsService().tamaho() <= 0)
         {
             System.err.println("Atenção, não há Nenhum Administrador Cadastrado");
             return false;
         }
         
-        for(Admin admin : s.getAdmins().listData())
+        for(Admin admin : s.getAdminsService().listData())
         {
             UCGerenciarUsuarios.imprimirUsuario(admin);
         }

@@ -1,41 +1,64 @@
 
-import controller.pedido.ItemController;
-import errors.ErrorHandller;
-import errors.shared.ErroAtributoNulo;
-import models.pedido.Produto;
-
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
-
-// O PROGRAMA ESTÁ DANDO ERRO PQ O INPUT DE DADOS ESTÁ ERRADO. ESTÁ SENDO FORNECIDO A PORRA DE UM VALOR DE NOME, KRLH.
+import database.Sistema;
+import database.dbLoader.DatabaseLoader;
+import java.io.FileNotFoundException;
+import java.util.NoSuchElementException;
+import utils.ScannerHandller;
+import views.menu.MenuPrincipal;
 
 
-public class Main {
+
+public class Main
+{
     public static void main(String[] args)
     {
-        // Sistema s = new Sistema();
-        // Entrada e = new Entrada();
+        try
+        {
+            mainLoop();
+            /* test(); */
+        }
+        catch(NoSuchElementException e)
+        {
+            System.out.println("Código interrompido, encerrando programa.");
+        }
+    }
 
-        // e.menu(s);
+    public static void mainLoop()
+    {
+        Sistema s = new Sistema();
 
-        // Entrada.listarPedidos(s.getAluno("234.567.890-00"), s);
+        try
+        {
+            ScannerHandller.init(false, "data/db/dados.txt", "#");
+        }
+        catch (FileNotFoundException e)
+        {
+            System.err.println("Arquivo não encontrado, database não alterado");
+            return;
+        }
 
-        Main.test();
+        DatabaseLoader.load(s);
+
+        ScannerHandller.close();
+
+        try
+        {
+            ScannerHandller.init(false, "data/inputs/entrada.txt", "#");
+        }
+        catch(FileNotFoundException e)
+        {
+            System.out.println("Arquivo de entrada não encontrado. Iniciando scanner com input do terminal.");
+            ScannerHandller.init();
+        }
+
+        MenuPrincipal.menu(s);
+
+        ScannerHandller.close();
     }
 
     public static void test()
     {
-        Produto p = new Produto(10, 5, null);
-        ErrorHandller.desativarDebug();
 
-        try
-        {
-            System.out.println(String.format("%.2f", ItemController.valorTotal(null)));
-        }
-        catch(ErroAtributoNulo e)
-        {
-            System.err.println(ErrorHandller.mensagemDeErro(e));
-        }
     }
 }
 

@@ -1,16 +1,38 @@
 package database.filters.tad;
 
-import java.util.List;
-
 import database.filters.BaseFilter;
+import errors.shared.ErroEntidadeNaoEncontrada;
+import java.util.List;
 import models.tad.Sala;
 
 public class SalaFilter extends BaseFilter<Sala>
 {
-    @Override
-    public int firstIndex(List<Sala> sala)
+    private final String codSala;
+
+    
+    public SalaFilter(String salaNameSearch)
     {
-        return 0;
+        super();    
+
+        this.codSala = salaNameSearch;
+    }
+
+    @Override
+    public int firstIndex(List<Sala> salas) throws ErroEntidadeNaoEncontrada
+    {
+        int i = 0;
+
+        for(Sala s : salas)
+        {
+            if(s.codigo().equals(this.codSala))
+            {
+                return i;
+            }
+
+            i++;
+        }
+
+       throw new ErroEntidadeNaoEncontrada(salas.getClass().toString());
     }
 }
 

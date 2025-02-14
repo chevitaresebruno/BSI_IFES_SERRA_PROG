@@ -3,24 +3,31 @@ package models.pedido;
 import errors.pedido.ErroEstoqueAdicionarNegativo;
 import errors.pedido.ErroEstoqueQuantidadeInvalida;
 import errors.pedido.ErroEstoqueRemoverNegativo;
+import errors.shared.ErroAtributoInvalido;
+import models.BaseModel;
 
 
-public class Produto implements IEstocavel
+/* TODO: Sistema de reservas */
+public class Produto extends BaseModel<Integer> implements IEstocavel
 {
     private int qtd;
     private double valor;
     private String name;
-    private String cod;
+    private int cod;
 
-    public Produto(int qtd, double valor, String name, String cod)
+    public Produto(int qtd, double valor, String name, int cod) throws ErroAtributoInvalido
     {
+        if(qtd < 0 || valor < 0)
+        {
+            throw new ErroAtributoInvalido("qtd ou valor <= 0");
+        }
         this.qtd = qtd;
         this.valor = valor;
         this.name = name;
         this.cod = cod;
     }
 
-    public Produto(int qtd, double valor, String cod)
+    public Produto(int qtd, double valor, int cod) throws ErroAtributoInvalido
     {
         this(qtd, valor, "Produto Indefinido", cod);
     }
@@ -48,7 +55,6 @@ public class Produto implements IEstocavel
         return this.qtd;  // informa novo valor em estoque
     }
 
-
     @Override
     public int getQuantidade()
     {
@@ -67,15 +73,31 @@ public class Produto implements IEstocavel
         return this.name;
     }
     
-    public String getCod()
+    public int getCod()
     {
         return this.cod;
+    }
+
+    public void setCod(int newCode)
+    {
+        this.cod = newCode;
+    }
+
+    public String getCodToString()
+    {
+        return String.format("PROD-%d", this.cod);
     }
     
     @Override
     public String toString()
     {
         return String.format("%s: %s", this.cod, this.name);
+    }
+
+    @Override
+    public boolean unique(Integer parameter)
+    {
+        return this.cod == parameter;
     }
 }
 

@@ -2,19 +2,21 @@ package models.pedido;
 
 import java.util.ArrayList;
 import java.util.List;
+import models.BaseModel;
 import models.tad.Sala;
 import models.usuarios.Aluno;
 
-public class Pedido
+
+public class Pedido extends BaseModel<Integer>
 {
-    private final String cod;
+    private int cod;
     private final Aluno cliente;
     private Aluno entregador;
     private final Sala s;
     private final List<Item> carrinho;
     private boolean entregue;
 
-    public Pedido(String cod, Aluno cliente, Sala s)
+    public Pedido(int cod, Aluno cliente, Sala s)
     {
         this.cod = cod;
         this.cliente = cliente;
@@ -24,9 +26,24 @@ public class Pedido
         this.entregue = false;
     }
 
+    public Pedido(Aluno cliente, Sala s)
+    {
+        this(0, cliente, s);
+    }
+
     public void setEntregador(Aluno a)
     {
         this.entregador = a;
+    }
+
+    public boolean setCode(int id)
+    {
+        if(id <= 0)
+            return false;
+
+        this.cod = id;
+
+        return true;
     }
 
     public boolean disponivel()
@@ -39,9 +56,14 @@ public class Pedido
         this.entregue = true;
     }
 
-    public String getCod()
+    public int getCod()
     {
         return this.cod;
+    }
+
+    public String getCodToString()
+    {
+        return String.format("PEDIDO-%s", this.cod);
     }
 
     public Aluno getCliente()
@@ -64,16 +86,15 @@ public class Pedido
         return this.s;
     }
 
-    // TODO: Mover isso para uma view ou UC
-    public void listarCarrinho()
-    {
-        for(Item i : this.carrinho)
-            System.out.println(i);
-    }
-
     @Override
     public String toString()
     {
-        return this.cod;
+        return this.getCodToString();
+    }
+
+    @Override
+    public boolean unique(Integer parameter)
+    {
+        return this.cod == parameter;
     }
 }

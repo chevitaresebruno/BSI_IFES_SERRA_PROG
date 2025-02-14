@@ -2,6 +2,7 @@ package database.filters.usuario;
 
 
 import database.filters.BaseFilter;
+import errors.shared.ErroEntidadeNaoEncontrada;
 import java.util.List;
 import models.usuarios.Usuario;
 
@@ -16,30 +17,30 @@ public class UsuarioFilter<Model extends Usuario> extends BaseFilter<Model>
     }    
 
     @Override
-    public int firstIndex(List<Model> usuarios)
+    public int firstIndex(List<Model> usuarios) throws ErroEntidadeNaoEncontrada
     {
         if(this.cpf.length() > 0)
         {
             return this.firstCpf(usuarios);
         }
 
-        return -1;
+        throw new ErroEntidadeNaoEncontrada(usuarios.getClass().toString());
     }
 
-    private int firstCpf(List<Model> usuarios)
+    private int firstCpf(List<Model> usuarios) throws ErroEntidadeNaoEncontrada
     {
         int index = 0;
 
         for(Usuario usuario : usuarios)
         {
-            index ++;
             if(usuario.getCPF().equals(this.cpf))
             {
                 return index;
             }
+            index ++;
         }
 
-        return -1;
+        throw new ErroEntidadeNaoEncontrada(String.format("Usuario: %s", cpf));
     }
 }
 

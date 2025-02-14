@@ -1,7 +1,9 @@
 package models.tad;
 
+import models.BaseModel;
 
-public class Sala
+
+public class Sala extends BaseModel<String>
 {
     private final String bloco;
     private final String sala;
@@ -17,6 +19,12 @@ public class Sala
     public String codigo()
     {
         return String.format("%s%s%s", this.bloco, this.sala, this.andar);
+    }
+
+    @Override
+    public boolean unique(String parameter)
+    {
+        return false;
     }
 }
 

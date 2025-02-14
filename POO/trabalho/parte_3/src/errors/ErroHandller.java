@@ -1,18 +1,18 @@
 package errors;
 
 
-public final class ErrorHandller
+public final class ErroHandller
 {
     private static boolean debug = true;
 
     public static void ativarDebug()
     {
-        ErrorHandller.debug = true;
+        ErroHandller.debug = true;
     }
 
     public static void desativarDebug()
     {
-        ErrorHandller.debug = false;
+        ErroHandller.debug = false;
     }
 
     public static String mensagemDeErro(ErroBase erro)
@@ -21,7 +21,7 @@ public final class ErrorHandller
 
         if(stackTrace.length > 0)
         {
-            if(ErrorHandller.debug)
+            if(ErroHandller.debug)
             {
                 StringBuilder sb = new StringBuilder();
                 sb.append(erro.toString()).append("\n");
@@ -43,6 +43,11 @@ public final class ErrorHandller
         }
 
         return erro.toString();
+    }
+
+    public static void imprimirMensagem(ErroBase erro)
+    {
+        System.err.println(erro.getMessage());
     }
 }
 

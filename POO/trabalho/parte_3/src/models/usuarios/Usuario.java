@@ -1,7 +1,9 @@
 package models.usuarios;
 
+import models.BaseModel;
 
-public abstract class Usuario
+
+public abstract class Usuario extends BaseModel<String> implements Comparable<Usuario>
 {
     protected String cpf, nome;
     private String senha;
@@ -37,7 +39,19 @@ public abstract class Usuario
     @Override
     public String toString()
     {
-        return String.format("%s - CPF: %s", this.nome, this.cpf);
+        return String.format("NOME: %s - CPF: %s", this.nome, this.cpf);
+    }
+
+    @Override
+    public boolean unique(String parameter)
+    {
+        return this.cpf.equals(cpf);
+    }
+
+    @Override
+    public int compareTo(Usuario u)
+    {
+        return this.cpf.compareTo(u.cpf);
     }
 }
 

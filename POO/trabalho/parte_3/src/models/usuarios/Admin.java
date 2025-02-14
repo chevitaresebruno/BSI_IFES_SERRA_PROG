@@ -21,7 +21,7 @@ public class Admin extends Usuario
     @Override
     public String toString()
     {
-        return String.format("%s %s", super.toString(), "(ADMIN)");
+        return String.format("%s EMAIL: %s, %s", super.toString(), this.email, "(ADMIN)");
     }
 }
 

@@ -1,7 +1,9 @@
 package models.pedido;
 
+import models.BaseModel;
 
-public class Item implements IEstocavel
+
+public class Item extends BaseModel<Object> implements IEstocavel
 {
     private final Produto p;
     private final int qtd;
@@ -33,6 +35,12 @@ public class Item implements IEstocavel
     public String toString()
     {
         return String.format("%s: %s (QTD: %d)", this.p.getCod(), this.p.getName(), this.qtd);
+    }
+
+    @Override
+    public boolean unique(Object parameter)
+    {
+        return false;
     }
 }
 

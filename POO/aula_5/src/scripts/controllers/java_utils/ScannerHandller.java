@@ -35,14 +35,9 @@ public final class ScannerHandller
         close();
     }
 
-    // private static void ErrorMessage(String message)
-    // {
-    //     System.out.println(String.format("ERROR: %s", message));
-    // }
-
     private static void ErrorMessage()
     {
-        System.out.println("ERROR: a classe ScannerHandller ainda não foi inicializada");
+        System.err.println("ERROR: a classe ScannerHandller ainda não foi inicializada");
     }
     
     public static String getString(String message)
