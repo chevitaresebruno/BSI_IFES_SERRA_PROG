@@ -1,6 +1,5 @@
 package database.services.usuario;
 
-import database.filters.usuario.UsuarioFilter;
 import database.services.AbstractService;
 import models.usuarios.Usuario;
 

@@ -6,11 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 import models.BaseModel;
+import models.tad.Senha;
 
 
 public class DatabaseWriter
 {
     private FileWriter writer;
+    private boolean append;
 
     @SuppressWarnings("CallToPrintStackTrace")
     public DatabaseWriter(String fileName, boolean append)
@@ -18,6 +20,13 @@ public class DatabaseWriter
         try
         {
             this.writer = new FileWriter(fileName, append);
+            this.append = append;
+
+            if(Senha.checkCanEncrypty() && !this.append)
+            {
+                System.out.println("ENCRYPTY");
+                this.writer.write("PASSWORDS ENCRYPTED\n");
+            }
         }
         catch(IOException e)
         {
@@ -41,17 +50,19 @@ public class DatabaseWriter
         }
     }    
 
-    public void recycle(String fileName) throws IOException
-    {
-        this.close();
-        this.init(fileName);
-    }
-
-    public boolean init(String fileName) throws IOException
+    public boolean recycle(String fileName, boolean append) throws IOException
     {
         if(this.writer != null)
             { return false; }
-        this.writer = new FileWriter(fileName);
+        this.writer = new FileWriter(fileName, append);
+        this.append = append;
+
+        if(Senha.checkCanEncrypty() && !this.append)
+        {
+            System.out.println("ENCRYPTY");
+            this.writer.write("PASSWORDS ENCRYPTED\n");
+        }
+
         return true;
     }
     

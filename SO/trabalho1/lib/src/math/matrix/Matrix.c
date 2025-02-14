@@ -1,9 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "lib/include/shared/Response.h"
-#include "lib/include/shared/Error.h"
-
 #include "lib/include/math/matrix/Matrix.h"
 
 
@@ -15,14 +12,13 @@ struct Matrix
 };
 
 
-Response* create_matrix(const unsigned int i, const unsigned int j)
+Matrix* create_matrix(const unsigned int i, const unsigned int j)
 {
     Matrix* m;
-    Response* aux;
 
     if(i < 1 || j < 1)
-        return create_response(NULL, create_error("create_matrix; i and j parameters can`t be less than 1.", PARAMETER_WORNG));
-    
+        return NULL;
+            
     m = (Matrix*)malloc(sizeof(Matrix));
 
     if(m==NULL)

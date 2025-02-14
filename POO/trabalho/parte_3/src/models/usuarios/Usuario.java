@@ -1,14 +1,20 @@
 package models.usuarios;
 
 import models.BaseModel;
+import models.tad.Senha;
 
 
 public abstract class Usuario extends BaseModel<String> implements Comparable<Usuario>
 {
     protected String cpf, nome;
-    private String senha;
+    private Senha senha;
 
     public Usuario(String cpf, String nome, String senha)
+    {
+        this(cpf, nome, new Senha(senha));
+    }
+
+    public Usuario(String cpf, String nome, Senha senha)
     {
         this.cpf = cpf;
         this.nome = nome;
@@ -17,14 +23,14 @@ public abstract class Usuario extends BaseModel<String> implements Comparable<Us
 
     public boolean validarAcesso(String s)
     {
-        return s.equals(this.senha);
+        return this.senha.compareTo(s) == 0;
     }
 
     public boolean alterarSenha(String atual, String nova)
     {
         if(this.validarAcesso(atual))
             {
-                this.senha = nova;
+                this.senha = new Senha(nova);
                 return true;
             }
         
@@ -41,9 +47,9 @@ public abstract class Usuario extends BaseModel<String> implements Comparable<Us
         return this.nome;
     }
 
-    public String getSenhaHash()
+    public String getSenhaToDatabase()
     {
-        return this.senha;
+        return this.senha.saveInDatabase();
     }
     
     @Override

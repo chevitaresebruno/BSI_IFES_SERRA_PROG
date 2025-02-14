@@ -2,16 +2,17 @@ package database.dbLoader;
 
 import utils.ScannerHandller;
 
-public enum DatabaseLoaderEnum
+public enum DatabaseLoaderMetadataEnum
 {
     FIM("FIM"),
+    PASSWORD_ENCRYPTED("PASSWORDS ENCRYPTED"),
     INDEFINIDO("Undefined"),
     ADIMINISTRADOR("ADM"),
     ALUNO("ALU");
     
     private final String tipoUsuario;
 
-    private DatabaseLoaderEnum(String tipoUsuario)
+    private DatabaseLoaderMetadataEnum(String tipoUsuario)
     {
         this.tipoUsuario = tipoUsuario;
     }
@@ -21,12 +22,11 @@ public enum DatabaseLoaderEnum
         return tipoUsuario;
     }
 
-    public static DatabaseLoaderEnum buildByInput()
+    public static DatabaseLoaderMetadataEnum buildByInput()
     {
         String input = ScannerHandller.getLine();
-        System.out.println("DEBUGGIN " + input);
 
-        for(DatabaseLoaderEnum dble : values())
+        for(DatabaseLoaderMetadataEnum dble : values())
         {
             if(dble.tipoUsuario.equals(input))
             {
@@ -34,7 +34,7 @@ public enum DatabaseLoaderEnum
             }
         }
 
-        return DatabaseLoaderEnum.INDEFINIDO;
+        return DatabaseLoaderMetadataEnum.INDEFINIDO;
     }
 }
 

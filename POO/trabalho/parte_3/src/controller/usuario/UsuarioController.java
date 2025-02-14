@@ -14,7 +14,7 @@ public abstract class UsuarioController<UserModel extends Usuario> implements IS
     @Override
     public String toSaveDatabaseFormat(UserModel u)
     {
-        return String.format("%s\n%s\n%s", u.getCPF(), u.getNome(), u.getSenhaHash());
+        return String.format("%s\n%s\n%s", u.getCPF(), u.getNome(), u.getSenhaToDatabase());
     }    
 }
 

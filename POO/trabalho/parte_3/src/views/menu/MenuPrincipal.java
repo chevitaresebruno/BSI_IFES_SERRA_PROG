@@ -72,7 +72,7 @@ public final class MenuPrincipal
             System.err.println("Atenção, erro fatal. Tentou fazer login sem Administradores Cadastrados. Encerrando Programa");
             System.exit(1);
         }
-        catch(ErroEntidadeNaoEncontrada e)
+        catch(ErroEntidadeNaoEncontrada | ErroLoginInvalido e)
             { /* Faz Nada */ }
 
         try
@@ -89,7 +89,7 @@ public final class MenuPrincipal
         }
     }
 
-    private static void loginAdm(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroDatabaseVazio
+    private static void loginAdm(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroEntidadeNaoEncontrada, ErroDatabaseVazio, ErroLoginInvalido
     {
         Admin a = s.getAdminsService().getData(new AdminFilter(cpf));
             
@@ -97,6 +97,8 @@ public final class MenuPrincipal
         {
             amd.menu(a, s);
         }
+
+        throw new ErroLoginInvalido();
     }
 
     private static void loginAluno(Sistema s, String cpf, String senha) throws ErroAtributoNulo, ErroLoginInvalido

@@ -1,12 +1,19 @@
 package models.usuarios;
 
 import errors.usuario.ErroInserirSaldoNegativo;
+import models.tad.Senha;
 
 public class Aluno extends Usuario
 {
     private double saldo;
 
     public Aluno(String cpf, String nome, String senha)
+    {
+        super(cpf, nome, senha);
+        this.saldo = 0;
+    }
+
+    public Aluno(String cpf, String nome, Senha senha)
     {
         super(cpf, nome, senha);
         this.saldo = 0;

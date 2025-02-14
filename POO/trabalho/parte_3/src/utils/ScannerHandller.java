@@ -9,21 +9,19 @@ import java.util.Scanner;
 
 public final class ScannerHandller
 {
-    private static Scanner scanner;
-    private static boolean initialize = false;
-    private static boolean readingFile = false;
-    private static int tail = 0;
-    private static boolean loopChecker = true;
-    private static String ignoreLine;
+    public static Scanner scanner;
+    public static boolean initialize = false;
+    public static boolean readingFile = false;
+    public static int tail = 0;
+    public static boolean loopChecker = true;
+    public static String ignoreLine;
 
     @SuppressWarnings("resource") /* TODO: Entender o motivo disso */
     public static void init(boolean checkLoop, String file, String lineToIgnore) throws FileNotFoundException
     {
         if(! initialize)
         {
-            if(file.length() <= 0)
-                { scanner = new Scanner(System.in).useLocale(Locale.US); }
-            else
+            if(file.length() > 0)
             {
                 scanner = new Scanner(new FileInputStream(file)).useLocale(Locale.US);
                 readingFile = true;
@@ -31,10 +29,11 @@ public final class ScannerHandller
                 initialize = true;
                 loopChecker = checkLoop;
                 ignoreLine = lineToIgnore;
+                tail++;
             }        
         }
-
-        tail++;
+        else
+            { tail++; }
     }
 
     public static void init()
@@ -44,7 +43,7 @@ public final class ScannerHandller
             scanner = new Scanner(System.in).useLocale(Locale.US);
             initialize = true;
             loopChecker = true;
-            ignoreLine = "";
+            ignoreLine = null;
         }
 
         tail++;
@@ -88,16 +87,19 @@ public final class ScannerHandller
             {
                 do
                 {
-                    input = scanner.nextLine();
+                    if(readingFile)
+                        { input = scanner.nextLine(); }
+                    else
+                        { input = scanner.next(); }
                 }
-                while(input.startsWith(ignoreLine));
+                while(ignoreLine != null && ignoreLine.length() > 0 && input.startsWith(ignoreLine));
             }
             catch(IllegalStateException e)
             {
                 System.err.println("O Scanner foi fechado, algum erro inesperado ocorreu. Inicializando Scanner de Emergência");
                 try (Scanner emergencyScanner = new Scanner(System.in).useLocale(Locale.US))
                 {
-                    do { input = emergencyScanner.nextLine(); } while(input.startsWith(ignoreLine));
+                    do { input = emergencyScanner.next(); } while(input.startsWith(ignoreLine));
                 }                
             }
             catch(NoSuchElementException e)

@@ -1,11 +1,19 @@
 package models.usuarios;
 
+import models.tad.Senha;
+
 
 public class Admin extends Usuario
 {
     private final String email;
 
     public Admin(String cpf, String nome, String senha, String email)
+    {
+        super(cpf, nome, senha);
+        this.email = email;
+    }
+
+    public Admin(String cpf, String nome, Senha senha, String email)
     {
         super(cpf, nome, senha);
         this.email = email;
