@@ -6,7 +6,7 @@ FILE* createReport(const unsigned int benchmarkNumber)
 {
     char benchmarkFName[sizeof(BENCHMARK_REPORT_FOLDER)+8]; /* nnn.txt = 7 + 1(\0) = 8 */
     benchmarkFName[sizeof(benchmarkFName)] = '\0';
-    sprintf(benchmarkFName, "%s/%u", BENCHMARK_FILES_FOLDER, benchmarkNumber);
+    sprintf(benchmarkFName, "%s/%u.txt", BENCHMARK_REPORT_FOLDER, benchmarkNumber);
     return fopen(benchmarkFName, "w");
 }
 

@@ -4,8 +4,7 @@
 int main() 
 { 
 	Vetor* v;
-	if(loadDotenv(0) == false)
-		return 1;
+	loadDotenv(0);
 	if(readEnvorimentVriables() == false)
 		return 2;
 

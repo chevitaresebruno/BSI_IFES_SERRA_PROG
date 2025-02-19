@@ -67,6 +67,7 @@ bool loadDotenv(const unsigned int envNumber)
     unsigned int equalsSing;
     string key;
     string value;
+    int i;
 
     if(envNumber == 0)
     {
@@ -102,8 +103,17 @@ bool loadDotenv(const unsigned int envNumber)
         }
     }
 
-    while (fgets(line, sizeof(line), f) != NULL)
+    while(true)
     {
+        if(line == NULL)
+            break;
+        if(sizeof(line) < 256)
+            break;
+        if(f == NULL)
+            break;
+        if(fgets(line, sizeof(line), f) == NULL)
+            break;
+
         if(line[0] == '\0' || line[0] == '\n' || line[0] == '#')
             continue;
 
@@ -123,7 +133,7 @@ bool loadDotenv(const unsigned int envNumber)
     }   
 
     fclose(f);
-    return true;
+    return 1;
 }
 
 
