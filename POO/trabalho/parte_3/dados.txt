@@ -1,21 +1,14 @@
-PASSWORDS ENCRYPTED
 ADM
 123.456.789-00
 Enzo da Silva
-9yLbPs3NxsZVLERTcTkLIQ==
-l2Wlc5MlyC1Aj7sUQXtUWw==
-utjBRw==
+enzo
 enzo@gmail.com
 ALU
 234.567.890-00
 Maria Pereira
-1xOxx991XfE82aocghPktw==
-MWYxwu88zA61dulUcK+c1g==
-O3mb5ik=
+maria
 ALU
 345.678.900-00
 Pedro da Cruz
-N3mvXQf0m4LUy72S8LZ6lg==
-ngbyVuXOivwWog/PJPnQwg==
-HhYrzpc=
+pedro
 FIM
