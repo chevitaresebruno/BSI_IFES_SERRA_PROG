@@ -38,54 +38,15 @@ int partition(vector v, const int l, const int h)
 }
 
 
-void* qs(void* arggs)
+QuickSortArggs* qsInitArgs(vector vec, const unsigned int size)
 {
-    QuickSortArggs* argg = (QuickSortArggs*) arggs;
-    
-    pthread_t* workers;
-    register iterator i;
-    register int p;
-
-    if (argg->l < argg->h)
-    {
-        p = partition(argg->v, argg->l, argg->h);
-
-        if(argg->tT < gThreadsNumber)
-        {
-            workers = (pthread_t*)malloc(sizeof(pthread_t)*2);
-            argg->tT += 2;
-            for(i = 0; i < 2; i++)
-                pthread_create(&workers[i], NULL, qs, argg);
-            for(i = 0; i , 2; i++)
-                pthread_join(workers[i], NULL);  
-        }
-        else
-        {
-            argg->p--;
-            qs(argg);
-            argg->p++;
-            argg->p++;
-            qs(argg);
-        }
-    }
-
-    return NULL;
-}
-
-
-QuickSortArggs* qsInitArgs(Vetor* vec)
-{
-    QuickSortArggs* arggs;
-    if(vec->data == NULL || vec->size <= 0) 
-        return NULL;
-    
-    arggs = (QuickSortArggs*)malloc(sizeof(QuickSortArggs));
+    QuickSortArggs* arggs = (QuickSortArggs*)malloc(sizeof(QuickSortArggs));
     if(arggs == NULL)
         return NULL;
     
-    arggs->v = vec->data;
+    arggs->v = vec;
     arggs->l = 0;
-    arggs->h = vec->size;
+    arggs->h = size;
     arggs->p = 0;
     arggs->tT = 0;
 
@@ -93,16 +54,99 @@ QuickSortArggs* qsInitArgs(Vetor* vec)
 }
 
 
-void quickSort(void* v)
+void* pqs(void* arggs)
+{
+    QuickSortArggs* argg = (QuickSortArggs*) arggs;
+    
+    pthread_t* workers;
+    register iterator i;
+    QuickSortArggs* arg1;
+    QuickSortArggs* arg2;
+
+    if (argg->l < argg->h)
+    {
+        argg->p = partition(argg->v, argg->l, argg->h);
+
+        if(argg->tT < gThreadsNumber)
+        {
+            workers = (pthread_t*)malloc(sizeof(pthread_t)*2);
+
+            arg1 = qsInitArgs(argg->v, argg->p-1);
+            if(arg1 == NULL)
+            {
+                free(workers);
+                goto LABEL;
+            }
+            arg2 = qsInitArgs(argg->v, argg->h);
+            if(arg2 == NULL)
+            {
+                free(workers);
+                free(arg1);
+                goto LABEL;
+            }
+
+            argg->tT += 2;
+            arg1->l = argg->l;
+            arg1->tT = argg->tT;
+            arg2->l = argg->p+1;
+            arg2->tT = argg->tT;
+
+            pthread_create(&workers[0], NULL, pqs, (void*)arg1);
+            pthread_create(&workers[1], NULL, pqs, (void*)arg2);
+
+            for(i = 0; i < 2; i++)
+                pthread_join(workers[i], NULL);  
+            
+            free(workers);
+            free(arg1);
+            free(arg2);
+        }
+        else
+        {
+            LABEL:
+            arg1 = qsInitArgs(argg->v, argg->p-1);
+            if(arg1 == NULL)
+                return NULL;
+            arg2 = qsInitArgs(argg->v, argg->h);
+            if(arg2 == NULL)
+            {
+                free(arg1);
+                return NULL;
+            }
+
+            arg1->l = argg->l;
+            arg1->tT = argg->tT;
+            arg2->l = argg->p+1;
+            arg2->tT = argg->tT;
+
+            pqs(arg1);
+            pqs(arg2);
+            
+            free(arg1);
+            free(arg2);
+        }
+    }
+
+    return NULL;
+}
+
+void* qs(void* arggs)
+{
+    return pqs(arggs);
+}
+
+
+void quickSort(Vetor* v)
 {
     QuickSortArggs* arggs;
-    if(v == NULL)
+    if(v == NULL || v->data == NULL || v->size <= 0)
         return;
 
-    arggs = qsInitArgs((Vetor*)v);
-        if(arggs == NULL)
-            return;
+    arggs = qsInitArgs(v->data, v->size-1);
+    if(arggs == NULL)
+        return;
 
     qs(arggs);
+    free(arggs);
 }
 

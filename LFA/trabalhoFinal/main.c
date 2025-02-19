@@ -13,6 +13,6 @@ int main()
 	executeBenchmark(v, quickSort);
 
 	vetorFree(v);
-	return 0; 
+	return 0;
 } 
 

@@ -1,7 +1,7 @@
 #ifndef SEMANTIC_H 
 #define SEMANTIC_H 1 
 
-typedef enum {false, true} bool;
+typedef enum {false = 0, true = 1} bool;
 typedef enum {correctFill, matrixNull, iLessThanOne, jLessThanOne, someVectorNull} matrixFillErros;
 typedef enum {readEnvorimentFile, allocMatrixMemory, deallocMatrixMemory, fillMatrix, saveMatrix, readMatrix, sSearch, pSearch, benchmark, pSearchSpeedUp, quit} menuOptions;
 

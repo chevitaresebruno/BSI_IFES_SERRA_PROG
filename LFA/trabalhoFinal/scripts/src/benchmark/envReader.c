@@ -160,8 +160,6 @@ bool readEnvorimentVriables()
         gArraySize = aux;
     
     aux = atoi(getenv("THREADS_NUMBER"));
-    if(aux == 0)
-        goto ATOI_ERROR;
     if(gThreadsNumber != aux)
         gThreadsNumber = aux;
 

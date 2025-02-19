@@ -47,7 +47,7 @@ void executeBenchmark(Vetor* v, funcaoDeOrdenacao sort)
             v = vetorBuild(gArraySize);
         }
 
-        for(c = 1; c < gTimes; c++)
+        for(i = 0; i < gTimes; i++)
         {
     
             srand(gSeed);
@@ -61,6 +61,7 @@ void executeBenchmark(Vetor* v, funcaoDeOrdenacao sort)
         }
 
         fclose(f);
+        c++;
     }
 }
 
