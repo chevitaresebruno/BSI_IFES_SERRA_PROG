@@ -36,6 +36,7 @@ SYSTEM_INFO sysinfo;
 #include "./../src/benchmark/benchmark.c"
 
 #include "./../src/ordenacao/quickSort.c"
+#include "./../src/ordenacao/mergeSort.c"
 
 
 #endif 

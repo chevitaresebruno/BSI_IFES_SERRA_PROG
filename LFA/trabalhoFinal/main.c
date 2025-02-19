@@ -10,7 +10,9 @@ int main()
 
 	v = vetorBuild(gArraySize);
 
-	executeBenchmark(v, quickSort);
+	// executeBenchmark(v, quickSort);
+
+	executeBenchmark(v, mergeSort);
 
 	vetorFree(v);
 	return 0; 
