@@ -1,6 +1,14 @@
 #include "./../../inc/shared.h"
 
-#include "./../../inc/vetor/vetor.h"
+
+typedef struct QuickSortArggs
+{
+    vector v;
+    unsigned int l;
+    unsigned int h;
+    int p;
+    unsigned int tT; /* threads total */
+} QuickSortArggs;
 
 
 int partition(vector v, const int l, const int h)
@@ -30,22 +38,71 @@ int partition(vector v, const int l, const int h)
 }
 
 
-void qs(vector v, const int l, const int h)
+void* qs(void* arggs)
 {
-    if (l < h)
+    QuickSortArggs* argg = (QuickSortArggs*) arggs;
+    
+    pthread_t* workers;
+    register iterator i;
+    register int p;
+
+    if (argg->l < argg->h)
     {
-        register int p = partition(v, l, h);
-        qs(v, l, p - 1);
-        qs(v, p + 1, h);
+        p = partition(argg->v, argg->l, argg->h);
+
+        if(argg->tT < gThreadsNumber)
+        {
+            workers = (pthread_t*)malloc(sizeof(pthread_t)*2);
+            argg->tT += 2;
+            for(i = 0; i < 2; i++)
+                pthread_create(&workers[i], NULL, qs, argg);
+            for(i = 0; i , 2; i++)
+                pthread_join(workers[i], NULL);  
+        }
+        else
+        {
+            argg->p--;
+            qs(argg);
+            argg->p++;
+            argg->p++;
+            qs(argg);
+        }
     }
+
+    return NULL;
 }
 
 
-void quickSort(Vetor* v)
+QuickSortArggs* qsInitArgs(Vetor* vec)
 {
-    if(v == NULL || v->data == NULL)
+    QuickSortArggs* arggs;
+    if(vec->data == NULL || vec->size <= 0) 
+        return NULL;
+    
+    arggs = (QuickSortArggs*)malloc(sizeof(QuickSortArggs));
+    if(arggs == NULL)
+        return NULL;
+    
+    arggs->v = vec->data;
+    arggs->l = 0;
+    arggs->h = vec->size;
+    arggs->p = 0;
+    arggs->tT = 0;
+
+    return arggs;
+}
+
+
+void quickSort(void* v)
+{
+    QuickSortArggs* arggs;
+    if(v == NULL)
         return;
 
-    qs(v->data, 0, v->size);
+    arggs = qsInitArgs((Vetor*)v);
+        if(arggs == NULL)
+            return;
+
+    qs(arggs);
 }
 

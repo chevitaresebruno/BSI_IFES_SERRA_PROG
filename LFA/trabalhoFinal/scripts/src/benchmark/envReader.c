@@ -143,14 +143,14 @@ bool readEnvorimentVriables()
     unsigned int aux;
 
     if(strcomp(_seed, "default"))
-        srand(1);
+        gSeed = 1;
     if(strcomp(_seed, "random"))
-        srand(time(NULL));
+        gSeed = time(NULL);
     else
     {
         if(atoi(_seed) == 0)
             goto ATOI_ERROR;
-        srand(atoi(_seed));
+        gSeed = atoi(_seed);
     }
 
     aux = atoi(getenv("ARRAY_SIZE"));

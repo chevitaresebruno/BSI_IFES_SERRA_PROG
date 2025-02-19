@@ -4,7 +4,7 @@
 #include "../vetor/Vetor.h"
 
 
-typedef void(*funcaoDeOrdenacao)(Vetor*);
+typedef void(*funcaoDeOrdenacao)(void*);
 
 
 #endif

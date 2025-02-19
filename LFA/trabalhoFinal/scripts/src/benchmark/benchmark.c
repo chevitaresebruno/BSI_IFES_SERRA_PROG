@@ -20,10 +20,10 @@ void printReport(FILE* f, double elapsedTime)
 }
 
 
-void executeBenchmark(Vetor* v, funcaoDeOrdenacao func)
+void executeBenchmark(Vetor* v, funcaoDeOrdenacao sort)
 {
     iterator i;
-    iterator c;
+    iterator c = 1;
     FILE* f;
 
     #ifdef __unix__
@@ -32,28 +32,34 @@ void executeBenchmark(Vetor* v, funcaoDeOrdenacao func)
     clock_t start, end;
     #endif
 
-    for(c = 1; loadDotenv(c) == true; c++)
+    while(loadDotenv(c) == true)
     {
         if(readEnvorimentVriables() == false)
-            continue;
-     
+                continue;
+         
         f = createReport(c);
         if(f == NULL)
             continue;
-            
+
         if(v->size != gArraySize)
         {
             vetorFree(v);
-            vetorBuild(gArraySize);
+            v = vetorBuild(gArraySize);
         }
-        vetorFill(v, MAX_ELEMENT_SIZE);
 
-        GET_TIME(start);
-        for(i = 0; i < gTimes; i++)
-            func(v);
-        GET_TIME(end);
+        for(c = 1; c < gTimes; c++)
+        {
+    
+            srand(gSeed);
+            vetorFill(v, MAX_ELEMENT_SIZE);
+    
+            GET_TIME(start);
+            sort(v);
+            GET_TIME(end);
+    
+            printReport(f, ELAPSED_TIME(start, end));
+        }
 
-        printReport(f, ELAPSED_TIME(start, end));
         fclose(f);
     }
 }

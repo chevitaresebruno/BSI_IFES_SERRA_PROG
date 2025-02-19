@@ -29,10 +29,12 @@ SYSTEM_INFO sysinfo;
 #include "./semantic.h"
 #include "./conf.h"
 
+#include "./vetor/Vetor.h"
 #include "./ordenacao/ordenacao.h"
 
 #include "./../src/vetor/Vetor.c"
 #include "./../src/benchmark/benchmark.c"
+
 #include "./../src/ordenacao/quickSort.c"
 
 
