@@ -38,7 +38,6 @@ typedef long signed int siterator;
 
 /* Macros Úteis */
 #define ARREDONDAR_PARA_BAIXO(n) ((int)n)
-#define MATRIX_ELEMENT (rand() % gMatrixElemMaxN)
 #define MAX_LINE_LENGHT 1024
 
 /* Macros de Configuração */
@@ -274,6 +273,117 @@ megabool ehPrimo(const unsigned int n)
     }
 
     return true;
+}
+
+
+matrix matrixAlloc()
+{
+    m = (matrix)malloc(sizeof(vector)*gMatrixRows);
+    if(m == NULL)  /* Erro na alocação, memória insuficiente */
+        return NULL;
+    for(register iterator c = 0; c < gMatrixRows; c++)
+    {
+        m[c] = (vector)malloc(sizeof(matrixElement)*gMatrixColumns);
+
+        if(m[c] == NULL) /* Verifica se cada coluna foi alocada corretamente e, caso não tenha sido, libera a memória de cada coluna até então alocada e da matriz inteira */
+        {
+            printf("%lu\n", c);
+            for(c; c > 0; c--)
+                { free(m[c]); }
+            free(m[0]); /* Para antes do 0, pois c não pode ser negativo */
+            free(m);
+            m = NULL;
+            return NULL;
+        }
+    }
+
+    return m;
+}
+
+
+void matrixDealloc()
+{
+    if(m == NULL) /* verifica se a matriz não é nula */
+        return;
+
+    for(register iterator c = 0; c < gMatrixRows; c++)
+    {
+        if(m[c] != NULL)  /* verifica se cada linha é nula e, caso não seja, desaloca a linha */
+            free(m[c]);
+    }
+    free(m);
+    m = NULL;
+}
+
+
+matrixFillErros matrixFill()
+{  
+    if(m == NULL)
+        return matrixNull;
+    if(gMatrixRows < 1)
+        return iLessThanOne;
+    if(gMatrixColumns < 1)
+        return jLessThanOne;
+
+    srand(gSeed);
+
+    for(iterator c = 0; c < gMatrixRows; c++) 
+    {
+        if(m[c] == NULL)
+        {
+            gMatrixRows = c;
+            return someVectorNull;
+        }
+        for(register iterator l = 0; l < gMatrixColumns; l++)
+            {  m[c][l] = MATRIX_ELEMENT; }
+    }
+
+    return correctFill;
+}
+
+
+void matrixSaveInFile()
+{
+    // Abrindo o arquivo "matriz.txt" para escrita
+    FILE *arquivo = fopen("matriz.txt", "w");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para escrita.\n");
+        return;
+    }
+
+    // Percorrendo a matriz e escrevendo no arquivo
+    for (int i = 0; i < gMatrixRows; i++) {
+        for (int j = 0; j < gMatrixColumns; j++) {
+            fprintf(arquivo, "%d ", m[i][j]);
+        }
+        fprintf(arquivo, "\n"); // Nova linha para cada linha da matriz
+    }
+
+    // Fechando o arquivo
+    fclose(arquivo);
+    printf("Matriz salva no arquivo matriz.txt com sucesso.\n");
+}
+
+
+void matrixReadFromFile()
+{
+    // Abrindo o arquivo "matriz.txt" para leitura
+    FILE *arquivo = fopen("matriz.txt", "r");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo para leitura.\n");
+        return;
+    }
+
+    // Lendo os dados do arquivo e preenchendo a matriz
+    for (int i = 0; i < gMatrixRows; i++) {
+        for (int j = 0; j < gMatrixColumns; j++) {
+            fscanf(arquivo, "%d", &m[i][j]);
+        }
+    }
+
+    // Fechando o arquivo
+    fclose(arquivo);
+    printf("Matriz lida do arquivo matriz.txt com sucesso.\n");
 }
 
 

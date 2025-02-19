@@ -3,47 +3,49 @@
 #include "./../../inc/vetor/vetor.h"
 
 
-int partition(vector v, const unsigned int l, const unsigned int h)
+int partition(vector v, const int l, const int h)
 {
-    register const unsigned int p = v[h];
-    register int i = l-1;
-    register iterator c = l;
-    register const unsigned int _h = h;
-    register unsigned int a;
+    register unsigned int pivot = v[h];
+    register int i = l - 1;
+    register int j;
+    register unsigned int s;
+    register int _h = h-1;
 
-    for(c; c <= _h; c++)
+    for (j = l; j <= _h; j++)
     {
-        if(v[c] <= p)
+        if (v[j] <= pivot)
         {
             i++;
-            a = v[i];
-            v[i] = v[c];
-            v[c] = a;
+            s = v[i];
+            v[i] = v[j];
+            v[j] = s;
         }
     }
 
-    a = v[i];
+    i++;
+    s = v[i];
     v[i] = v[h];
-    v[h] = a;
-
+    v[h] = s;
     return i;
 }
 
-void recCall(vector v, const unsigned int l, const unsigned int h)
+
+void qs(vector v, const int l, const int h)
 {
-    unsigned int p;
-    if(l < h)
+    if (l < h)
     {
-        p = partition(v, l, h);
-        recCall(v, l, p-1);
-        recCall(v, p+1, h);
+        register int p = partition(v, l, h);
+        qs(v, l, p - 1);
+        qs(v, p + 1, h);
     }
 }
+
 
 void quickSort(Vetor* v)
 {
     if(v == NULL || v->data == NULL)
         return;
 
-    recCall(v->data, 0, v->size);
+    qs(v->data, 0, v->size);
 }
+

@@ -48,3 +48,14 @@ int vetorFill(Vetor* v, const unsigned int maxNSize)
     return 0;
 }
 
+
+void vetorPrint(const Vetor* v)
+{
+    register unsigned int i;
+    if(v == NULL)
+        return;
+
+    for(i = 0; i < v->size; i++)
+        printf("%u ", v->data[i]);
+}
+

@@ -10,10 +10,7 @@ LIB_SRC_DIR_NAME=src
 LIB_INC_DIR_NAME=inc
 
 # Debug Flag In Gcc: -g
-COMPILER_FLAGS= -W \
-				-Wall \
-				-ansi \
-				-pedantic
+COMPILER_FLAGS= 
 
 
 all: $(PROJECT_NAME)
