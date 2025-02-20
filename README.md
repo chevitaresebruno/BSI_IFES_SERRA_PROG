@@ -8,4 +8,4 @@ make all
 ./main
 ```
 
-Na pasta `/out/realatrorios/` apareceram os bechmarks com o tempo de execução serial e multithread.
+Na pasta `/out/realatrorios/` aparecerão os bechmarks com o tempo de execução serial e multithread.
