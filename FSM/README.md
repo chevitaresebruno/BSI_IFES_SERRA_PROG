@@ -1,4 +1,4 @@
-# BSI_IFES_SERRA_FSM
+# FSM
 
 ## Introdução
 Esse repositório tem por objetivo armazenar e organizar todos os códigos e tarefas desenvolvidas ao longo da matéria "Fundamentos de Sistema e Multimída" (FSM), lecionada pelo professor mestre [Flávio Giraldeli Bianca](https://www.escavador.com/sobre/1734781/flavio-giraldeli-bianca)

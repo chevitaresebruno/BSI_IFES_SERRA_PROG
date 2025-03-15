@@ -1,4 +1,4 @@
-# LFA_IFES_SERRA
+# LFA
 ## Introdução
 Esse repositório tem por objetivo armazenar e organizar todos os códigos e tarefas desenvolvidas ao longo da matéria "Linguagens Formais e Autômatos" (LFA), lecionada pelo professor doutor [Jefferson Oliveira Andrade](https://www.researchgate.net/profile/Jefferson-Andrade) no Instituto Federal de Educação Ciêncais e Tecnologia (Ifes) campus Serra.
 
