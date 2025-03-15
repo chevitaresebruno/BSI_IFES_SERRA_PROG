@@ -1,0 +1,114 @@
+\captionsetup{justification=centering,margin=0cm}
+\label{cap:atividade5}  % Forma de referenciar o capítulo no comando \ref
+
+%inicio do capitulo
+\chapter[Atividade5: Entendendo, de verdade, o formato JPEG]{Atividade 5: Entendendo, de verdade, o formato JPEG}
+O seguinte capítulo tem por objetivo expor as nuances envolvendo o formato JPEG. Para tal, utilizou-se softwares \textit{PackJPG}, \textit{XnView MP} e \textit{RIOT} para coletar diversos dados e, a partir deles, interpretar as suas particularidades.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Variação do Tamanho (KB) e o Ratio em função do Fator de Qualidade e \textit{Subsampling}.}
+    \label{tab:6a}
+
+    \scriptsize
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C|C|C|C|C|C}
+    \hline
+        \multirow{2}{*}{\textbf{Imagem}} & \multirow{2}{*}{\textbf{\makecell{Fator\\Qual.}}} & \multicolumn{5}{c|}{\textbf{Tamanhos (KB)}} & \multicolumn{5}{c}{\textbf{Ratios (\%)}} \\ \hhline{~~----------}
+        ~ & ~ & \textbf{4:4:4} & \textbf{4:2:2} & \textbf{4:2:0} & \textbf{4:1:1} & \textbf{4:0:0*} & \textbf{4:4:4} & \textbf{4:2:2} & \textbf{4:2:0} & \textbf{4:1:1} & \textbf{4:0:0*} \\ \hline
+        48 & 30 & 242,55 & 208,2 & 247,7 & 187,69 & 162,55 & 5,75\% & 4,93\% & 5,87\% & 4,45\% & 3,85\% \\ \hline
+        46 & 60 & 214,8 & 182,11 & 163,83 & 162,97 & 137,1 & 5,09\% & 4,32\% & 3,88\% & 3,86\% & 3,25\% \\ \hline
+        39 & 55 & 238,29 & 203,92 & 184 & 184,05 & 158,95 & 5,65\% & 4,83\% & 4,36\% & 4,36\% & 3,77\% \\ \hline
+        35 & 55 & 182,68 & 153,78 & 136,88 & 136,72 & 113,28 & 4,33\% & 3,64\% & 3,24\% & 3,24\% & 2,68\% \\ \hline
+        33 & 60 & 367,75 & 267,56 & 215,85 & 212,3 & 160,75 & 8,72\% & 6,34\% & 5,12\% & 5,03\% & 3,81\% \\ \hline
+        18 & 55 & 124,72 & 103,87 & 87,96 & 89,83 & 64,98 & 2,96\% & 2,46\% & 2,08\% & 2,13\% & 1,54\% \\ \hline
+        16 & 60 & 184,25 & 153,51 & 133,73 & 135,53 & 107,03 & 4,37\% & 3,64\% & 3,17\% & 3,21\% & 2,54\% \\ \hline
+        3 & 95 & 154,54 & 139,19 & 131,68 & 132,07 & 124,38 & 3,66\% & 3,30\% & 3,12\% & 3,13\% & 2,95\% \\ \hline 
+    \end{tabularx}
+
+    \autoriaPropria
+
+\end{table}
+
+\paragrafo As diferenças entre diferentes técnicas de chroma subsampling mostraram-se, na maioria dos testes, visualmente irrelevantes. Isso ocorre porque essa técnica remove informações de crominância, que nossos olhos geralmente não percebem. Portanto, desde que não haja macro blocos visíveis, os diferentes métodos utilizados(4.2.2, 4.2.0 ou 4.1.1) não introduzem mudanças visíveis ou perda significativa de detalhes (pelo menos foi o que observei). Em muitos casos, pode-se optar pelo método mais leve sem comprometer muito a qualidade da imagem. No entanto, ainda persiste a questão sobre por que o chroma subsampling mais comum é o 4:4:0.
+
+\paragrafo Em relação aos testes realizados, houve uma exceção notável. Na imagem 33, houve uma deterioração drástica na qualidade, independentemente do método de subsampling utilizado. Isso sugere que os métodos de subsampling mais leves podem não ser adequados para imagens com alto conteúdo de pequenas partículas coloridas ou macro blocos visíveis, como testei com a imagem 33, imagem com folhas de árvores laranjas. No entanto, é importante ressaltar que esses casos são menos comuns e que, para a maioria das imagens, é possível manter uma boa qualidade com métodos de subsampling mais leves.
+
+\paragrafo Quanto à escala de cinza, achei-a bastante interessante. No entanto, ao optar pela escala grayscale, a escolha não é mais ditada pela compressão, mas sim por considerações estéticas. A menos que haja uma necessidade extrema de compressão, não vejo motivo prático para utilizar a escala de cinza em detrimento da qualidade de imagem.
+
+\begin{table}[H]
+    \centering
+    \caption{Avaliação dos Artefatos do JPEG}
+    \label{tab:6b}
+
+    \footnotesize
+    \begin{tabularx}{\textwidth}{X|C|C|C|C}
+    \hline
+        \textbf{Imagem} & \textbf{Pontos} & \textbf{Fator Qual.} & \textbf{Tamanho (KB)} & \textbf{\textit{Ratio} (\%)} \\ \hline
+        \multirow{4}{*}{48} & Transparência & 40 & 254,09 & 6,02\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 5 & 45,38 & 1,08\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 5 & 45,38 & 1,08\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 5 & 45,38 & 1,08\% \\ \hline
+        \multirow{4}{*}{46} & Transparência & 55 & 154,39 & 3,66\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 35 & 119,12 & 2,82\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 15 & 65,12 & 1,54\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 15 & 65,12 & 1,54\% \\ \hline
+        \multirow{4}{*}{39} & Transparência & 55 & 202 & 4,79\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 35 & 139,52 & 3,31\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 30 & 122,01 & 2,89\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 10 & 43,82 & 1,04\% \\ \hline
+        \multirow{4}{*}{35} & Transparência & 55 & 153,78 & 3,64\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 35 & 107,61 & 2,55\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 25 & 82,37 & 1,95\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 10 & 37,43 & 0,89\% \\ \hline
+        \multirow{4}{*}{33} & Transparência & 45 & 205,86 & 4,88\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 20 & 96,83 & 2,30\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 15 & 71,05 & 1,68\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 10 & 43,86 & 1,04\% \\ \hline
+        \multirow{4}{*}{18} & Transparência & 50 & 94,98 & 2,25\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 35 & 73,38 & 1,74\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 25 & 56,98 & 1,35\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 5 & 17,63 & 0,42\% \\ \hline
+        \multirow{4}{*}{16} & Transparência & 40 & 129,52 & 3,07\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 25 & 88,36 & 2,09\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 15 & 57,66 & 1,37\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 8 & 31,83 & 0,75\% \\ \hline
+        \multirow{4}{*}{3} & Transparência & 75 & 54,19 & 1,28\% \\ \hhline{~----}
+        ~ & Ruídos de Mosquito & 50 & 34,76 & 0,82\% \\ \hhline{~----}
+        ~ & Macroblocos Visíveis & 50 & 34,76 & 0,82\% \\ \hhline{~----}
+        ~ & Baixa Qualidade & 25 & 21,66 & 0,51\% \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+
+\end{table}
+
+\paragrafo De acordo com os nossos testes, os artefatos visuais são relativos ao conteúdo da imagem, variando conforme bordas definidas, excesso de partículas, degradês, entre outros. As características das imagens influenciam significativamente na percepção da qualidade após a aplicação do chroma subsampling, que é um método de compressão com perdas.
+
+\paragrafo Em imagens com degradês, há a tendência de surgir camadas perceptíveis (macro blocos), enquanto em imagens com bordas bem definidas, é comum aparecer ruído de mosquito, onde um pode aparecer antes do outro a depender destes detalhes. Quando há muitas partículas ou macroblocos visíveis, o subsampling pode causar alterações notáveis. Isso na prática foi bem simples ver alterações na imagem 3, entretanto na imagem 48 já tive mais dificuldade, onde inicialmente não percebi o ajuste de foco. Apenas ao revisitar a imagem notei essa diferença.
+
+\paragrafo Também é importante ressaltar que a aplicação de chroma subsampling pode causar uma variação visível mesmo com o fato qualidade máximo na conversão do arquivo (Principalmente com o JPEG, formato utilizado nesta atividade), ocasionando compressões de baixa qualidade independnete do fator citado.
+
+\paragrafo O próximo teste consiste em verificar a eficácia de compressão de diferentes algoritmos em imagens JPEG. A Tabela \ref{tab:6c}.
+\begin{table}[H]
+    \centering
+    \caption{Recomprindo o JPEG}
+    \label{tab:6c}
+
+    \footnotesize
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C}
+    
+    \hline
+    \multirow{2}{*}{\makecell{\textbf{JPEG}\\\textbf{Original}\\\textbf{(bytes)}}} & \multicolumn{2}{c|}{\textbf{Pack RAR}} & \multicolumn{2}{c|}{\textbf{Pack ZIP}} \multicolumn{2}{c}{\textbf{wxPackJPG}} \\ \hhline{~------}
+    ~ & \textbf{Tamanho (bytes)}	& \textbf{Ratio (\%)} & \textbf{Tamanho (bytes)} &	\textbf{Ratio (\%)}	& \textbf{Tamanho (bytes)} &	\textbf{Ratio (\%)} \\\hline
+    11 & 11 & 99,12\% & 11,3 & 99,12\% & 9 & 80,09\% \\ \hline
+
+    \end{tabularx}
+
+    \autoriaPropria
+
+\end{table}
+
+\paragrafo Como pode-se observar, o RAR e ZIP quase não conseguiram comprimir mais os arquivos. Assim, não faz sentido comprimir esses arquivos em RAR ou ZIP, visto que não foram projetados para compressão de imagens, especificamente. No entanto, o \textit{wxPackJPG} obteve um ratio de 80\%, uma quantidade certamente considerável. Isso ocorre, pois diferente do RAR e do ZIP, que tentam encontrar relações entre os \textit{pixels} linha a linha, o \textit{wxPackJPG} divide a imagens em blocos e busca a melhor forma de compressão para cada um deles, seja leitura dos \textit{pixels} linha a linha, coluna a coluna ou em zig-zag na diagonal. Assim, ele utiliza o melhor método de compressão para cada caso.
+
+\paragrafo Assim, o \textit{wxPackJPG} torna-se extremamente útil caso tenha um método fácil de exibi-lo via qualquer software e seria maravilhoso utiliza-lo para web. Além disso, backups também podem se beneficiar desses métodos. Entretanto, por uma diminuição de 20\% não penso que seria um real sucessor do JPEG, o qual está muito consolidado na internet atualmente.

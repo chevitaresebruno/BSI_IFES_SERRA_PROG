@@ -1,0 +1,110 @@
+\captionsetup{justification=centering,margin=0cm}
+
+%inicio do capitulo
+\chapter[ANALISANDO COMPRESSÃO DE ÁUDIOS (ATIVIDADE 3)]{ANALISANDO COMPRESSÃO DE ÁUDIOS (ATIVIDADE 3)}
+\index{ANALISANDO COMPRESSÃO DE ÁUDIOS (ATIVIDADE 3)}
+Após estudar os conceitos teóricos da compressão, é chegada a hora de verificar quais as influências dessa técnica na qualidade do áudio
+
+\section{Definindo a Complexidade de um Áudio}
+A primeira coisa a ser avaliada é como categorizar a complexidade de um aquivo de áudio. Como deve-se saber, utilizar parâmetros relativos é um problema, portanto, precisa-se definir um conceito claro e coeso de como entender um áudio simples ou complexo.
+
+\hspace{1.5 cm} O foco deste trabalho é a análise da compressão de arquivos, assim a métrica para medir a complexidade de um arquivo será o \textit{ratio}. Esse é dado pela razão do arquivo após as modificações pelo arquivo original, segundo informações contidas no próprio material da disciplina \cite{FlavioGiraldeli}; quanto menor for o \textit{ratio} menor será a sua complexidade.
+
+\hspace{1.5 cm} A partir dessa métrica pode-se ter uma análise menos empírica, contudo, ainda faz-se necessário o entendimento de quais características melhoram ou pioram as taxas de compressão. Diversos fatores são importantes, mas segue uma lista daqueles que mais influenciam e a sua justificativa:
+
+\begin{itemize}
+    \item Presença áudios em dois canais distintos: conforme demonstrado na secção anterior, áudios binaurais possuem informações diferentes para os dois ouvidos, caso essa diferença seja muito pequena existem algoritmos que realizam manipulações no áudio para mesclar ambos os canais, reduzindo o tamanho do arquivo;
+    \item Presença de ruído: arquivos que contém menos ruídos, como plateias ao fundo ou mesmo instrumentos mais caóticos como os pratos de uma bateria, podem ser comprimidos com mais eficiência, reduzindo o \textit{ratio}; e
+    \item Presença de muitas faixas de áudio em frequências muito baixas ou elevadas: a audição humana é capaz de captar sons na faixa de 20 a 20.000 hz, contudo a audição é perdida com o passar dos anos, tornando inviável para a maioria das pessoas captar essas faixas, assim, muitos compressores "cortam" essas informações dos arquivos para reduzir seus tamanhos. 
+\end{itemize}
+
+\hspace{1.5 cm} Dessa forma, concluí-se que um arquivo mais simples é aquele que contem canais de áudios com diferenças, mas com certa proximidade, pouca presença de ruído e muitas faixas de frequências altas ou baixas. Esses arquivos, ao serem comprimidos, ficarão com uma qualidade péssima, de fato, mas o objetivo não é verificar se vai ficar bom, mas sim se vai ficar compacto.
+
+\hspace{1.5 cm} Com os critérios devidamente estabelecidos, optamos por escolher as músicas "\textit{Words}" e "\textit{It's Only Love}" como as mais simples e as músicas "Há Tempos" e "\textit{Stars}" como as mais complexas.
+
+
+\section{Analisando Taxas de Compressão em Diferentes Formatos}
+\hspace{1.5 cm} Após a definição das músicas mais complexas. Uma série de compressões foram feitas para avaliar as capacidades de cada compressor. Utilizando a ferramenta \textit{Foobar2000}, diferentes formatos foram utilizados e as compressões devidamente feitas. A Tabela 3 expõe cada um dos resultados.
+
+\begin{table}[htbp]
+\centering
+\caption{Compressões de arquivos de áudio}
+\label{tab:compressao_audio}
+\begin{tabularx}{\textwidth}{|>{\centering\arraybackslash}X|*{5}{>{\centering\arraybackslash}X|}}
+\hline
+\textbf{Música} & \textbf{RAR (\%)} & \textbf{ZIP (\%)} & \textbf{FLAC (\%)} & \textbf{Monkey's (\%)} & \textbf{ALAC (\%)} \\
+\hline
+Bee Gees - Words & 66,46 & 84,89 & 39,59 & 38,28 & 39,59 \\ \hline
+Bruce Springsteen - Nebraska & 70,45 & 86,29 & 50,48 & 46,50 & 50,48 \\ \hline
+Coldplay - Midnight & 66,60 & 95,03 & 55,58 & 51,13 & 55,58 \\ \hline
+Coldplay - Paradise & 77,83 & 96,08 & 69,03 & 64,64 & 69,03 \\ \hline
+Coldplay - Sunrise & 64,52 & 90,10 & 51,44 & 46,85 & 51,44 \\ \hline
+Eagles - Hotel California & 74,09 & 94,57 & 67,06 & 63,38 & 67,06 \\ \hline
+Ed Sheeran - I See Fire & 68,82 & 92,86 & 55,67 & 52,62 & 55,67 \\ \hline
+Embrace - Gravity & 75,95 & 95,06 & 65,79 & 60,69 & 65,73 \\ \hline
+Goo Goo Dolls - We'll Be Here (When You're Gone) & 86,29 & 97,71 & 79,71 & 77,35 & 79,71 \\ \hline
+John McLaughlin - Just Give It Time & 83,64 & 97,34 & 75,77 & 73,21 & 75,77 \\ \hline
+Lasgo - Intro & 64,18 & 94,88 & 52,50 & 49,15 & 52,50 \\ \hline
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\caption{Continuaão da Tabela 3}
+\begin{tabularx}{\textwidth}{|c|*{5}{>{\centering\arraybackslash}X|}}
+\hline
+ Músicas & \textbf{RAR (\%)} & \textbf{ZIP (\%)} & \textbf{FLAC (\%)} & \textbf{Monkey's (\%)} & \textbf{ALAC (\%)} \\
+\hline
+Legião Urbana - Há Tempos [Ao Vivo] & 83,84 & 97,44 & 77,91 & 74,41 & 77,91 \\ \hline
+Lights Out Asia - Promontory-Cemetery & 75,48 & 96,44 & 67,20 & 62,78 & 67,20 \\ \hline
+ Madonna - Vogue & 82,15 & 97,28 & 72,12 & 67,47 & 72,12 \\ \hline
+Maroon 5 - Unkiss Me & 79,86 & 95,91 & 71,97 & 69,94 & 71,97 \\ \hline
+Matt Cardle - It’s Only Love [Acústica] & 48,82 & 78,63 & 33,33 & 31,47 & 33,33 \\ \hline
+Roxette - Stars [Almighty Remix] & 90,54 & 97,47 & 82,14 & 79,13 & 82,14 \\ \hline
+Shout Out Louds - Illusions & 80,83 & 97,11 & 71,44 & 68,90 & 71,44 \\ \hline
+The Album Leaf - Window & 61,29 & 88,95 & 46,86 & 38,29 & 46,86 \\ \hline
+The Beatles - Yellow Submarine & 71,49 & 93,43 & 61,72 & 59,28 & 61,72 \\
+\hline
+\end{tabularx}
+\end{table}
+
+Como pode-se observar, o formato \textit{monkeys audio} foi o melhor em todos os testes. Além disso, os compressores genéricos foram bem menos eficientes do que os específicos. Uma das possíveis explicações para isso é que como os algoritmos são genéricos eles não atuam em cima das nuances da especificidade das músicas, enquanto os demais atuam em cima de modelos psicoacústicos, melhorando a sua eficiência.  
+
+\subsection{Ruído Branco}
+Ainda nas músicas analisada, exigiu-se a análise de um ruído branco. Como o nome sugere, o arquivo é um ruído. Após a sua compressão, o arquivo ficou maior do que sem a compressão. Conforme visto na secção 4.3, um ruído geralmente é mal comprimido, e como nesse caso, pode ser aumentado. Assim, está tudo dentro do esperado conforme estabelece a teoria.
+
+\section{Sobre as Avaliações iniciais}
+Após obtermos os dados da \ref{tab:compressao_audio}, percebemos que erramos por muito pouco. As músicas menos complexas estavam corretas, contudo, as músicas mais complexas estavam erradas. Mais especificamente, a música "Há Tempos" era a terceira mais complexa. Apesar disso, o erro foi bastante próximo do resultado real.
+
+\begin{table}[htbp]
+\centering
+\caption{Complexidade das músicas em relação à compressão Monkey's}
+\begin{tabularx}{\textwidth}{l|X|c}
+\toprule
+\textbf{Complexidade} & \textbf{Músicas} & \textbf{Monkey's (\%)} \\
+\midrule
+Baixa & Matt Cardle - It’s Only Love [Acústica] & 31,47\% \\
+      & Bee Gees - Words                         & 38,28\% \\
+      & The Album Leaf - Window                 & 38,29\% \\
+      & Bruce Springsteen - Nebraska            & 46,50\% \\
+      & Coldplay - Sunrise                      & 46,85\% \\
+      & Lasgo - Intro                           & 49,15\% \\
+\midrule
+Média & Coldplay - Midnight                     & 51,13\% \\
+      & Ed Sheeran - I See Fire                & 52,62\% \\
+      & The Beatles - Yellow Submarine          & 59,28\% \\
+      & Embrace - Gravity                       & 60,69\% \\
+      & Lights Out Asia - Promontory-Cemetery   & 62,78\% \\
+      & Eagles - Hotel California              & 63,38\% \\
+      & Coldplay - Paradise                    & 64,64\% \\
+      & Madonna - Vogue                        & 67,47\% \\
+      & Shout Out Louds - Illusions            & 68,90\% \\
+      & Maroon 5 - Unkiss Me                   & 69,94\% \\
+\midrule
+Alta  & John McLaughlin - Just Give It Time    & 73,21\% \\
+      & Legião Urbana - Há Tempos [Ao Vivo]    & 74,41\% \\
+      & Goo Goo Dolls - We'll Be Here (When You're Gone) & 77,35\% \\
+      & Roxette - Stars [Almighty Remix]       & 79,13\% \\
+\bottomrule
+\end{tabularx}
+\end{table}

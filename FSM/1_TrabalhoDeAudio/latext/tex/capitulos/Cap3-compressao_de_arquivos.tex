@@ -1,0 +1,113 @@
+\captionsetup{justification=centering,margin=0cm}
+
+%inicio do capitulo
+\chapter[COMPRESSÃO DE ARQUIVOS (ATIVIDADE 1, ENTROPIA NA PRÁTICA)]{COMPRESSÃO DE ARQUIVOS (ATIVIDADE 1, ENTROPIA NA PRÁTICA)}
+\index{COMPRESSÃO DE ARQUIVOS (ATIVIDADE 1, ENTROPIA NA PRÁTICA)}
+Conforme estabelecido na introdução do trabalho, uma das complicações da multimídia é como lidar com o armazenamento de informações. Uma das soluções para lidar com a grande quantidade de dados é comprimi-los em arquivos menores. Então, antes de compreender o efeito da compressão em arquivos de áudio, primeiro deve-se entender esse conceito em contextos mais simples, como na compressão de arquivos de texto.
+
+\section{Conceito de Compressão}
+A compressão de arquivos consiste no objetivo de representar informações de forma a ocupar menos espaço. No contexto da computação, diz-se que um arquivo comprimido atinge seu objetivo quando as informações de um arquivo são mantidas, mas o total de \textit{bits} do arquivo comprimido é menor que o original. Por mais simples que o conceito possa parecer, um método de compressão possui mais nuances do que ele aparenta a priori. Então, vamos destrinchar aos poucos essas questões, observando a complexidade dessa técnica.
+
+\subsection{Para que Comprimir um Arquivo}
+Uma das grandes questões no armazenamento de arquivos é o espaço que eles ocupam. Em particular no contexto de multimídia, onde imagens, sons e vídeos são misturados, o problema o espaço ocupado aumenta consideravelmente. Além disso, o transporte de informação é piorado com um aumento de dados a serem transferidos (quanto mais dados, mais tempo é gasto). Assim, a compressão de arquivos surge como uma forma de reduzir o total de espaço ocupado, aumentando o potencial de uso dos recursos e acelerando a transmissão de todas as informações.  
+
+\subsection{Métodos de Compressão para Diferentes Contextos}
+A primeira coisa a ser observada é que diferentes contextos exigem diferentes abstrações da realidade analógica para a realidade digital do computador. Consideremos dois contextos, a letra de o som de uma música. Apesar de comporem uma mesa coisa, a letra - pensando no texto em si e não em sua vocalização - possui uma natureza essencialmente diferente do som. 
+
+\hspace{1.5 cm} Considere duas pessoas distintas, capazes de ouvir e alfabetizadas na língua portuguesa. Toda a informação contida na letra será transmitida a ambos indivíduos da mesma forma\footnote{Os gramáticos, de certo, ficarão no mínimo incomodados com tal afirmação e eles possuem razão. Duas pessoas jamais irão ler um texto da mesma forma, dadas as suas experiências particulares que compõe a formação do sujeito crítico. Contudo, o conteúdo do texto sim é o mesmo para ambas as pessoas e essa é a natureza da análise exposta.}, já os sons podem conter perdas de sua informação, devido à sua natureza estar diretamente atrelada a um sentido humano, o qual deteriora-se com o tempo. Além disso, diferentes corpos biológicos possuem variações entre si, fato este que pode implicar em uma pessoa poder ouvir mais faixas de frequência do som do que outras, aumentando a distância das informações captadas por cada um.
+
+\hspace{1.5 cm} Dessa forma, diferentes contextos impõem uma conjuntura particular para cada caso. Perceba que um som permite uma margem para perda de informação, uma vez que existem indivíduos que sequer irão perceber essa variação caso ela esteja dentro do aceitável, enquanto um texto precisa manter a sua integridade para que todo o seu conteúdo seja devidamente transmitido. Assim, diversos algoritmos surgem para atender demandas específicas, cada um adaptado a um contexto. Ainda ancorado no som, existem formatos de áudio operam melhor para voz humana, enquanto outros buscam representar com a maior fidelidade possível a realidade. Portanto, para cada caso existe a forma ideal de realizar a compressão. 
+
+\subsection{Compressão de Arquivos Naturais, Arquivos Harmônicos e Ruídos}
+A compressão funciona por meio de algoritmos diferentes. Existem algoritmos que são específicos e outros que são genéricos. Contudo, a maior parte deles funciona de uma forma bastante semelhante: observam a realidade e tentam extrair dela padrões.
+
+\hspace{1.5 cm} Arquivos naturais\footnote{Esse forma de referir-se à arquivos não existe na literatura, é uma notação própria deste trabalho.} são àqueles gerados naturalmente. Os textos deste documento, por exemplo, é um texto natural, ele não foi escrito seguindo um algoritmo ou utilizando uma inteligência artificial. Geralmente este tipo de arquivo possui sim padrões, contudo eles não são tão evidentes quanto arquivos artificialmente produzidos para seguir um padrão. Quando o padrão é reconhecido pelo algoritmo aquele intervalo pode ser comprimido por uma equação matemática que represente esse padrão.
+
+\hspace{1.5 cm} Assim como os arquivos naturais, arquivos harmônicos também podem ser comprimidos, contudo o seu fator de compressão tende a ser maior. Um arquivo harmônico é gerado naturalmente a partir de estruturas harmônicas. Por exemplo, um arquivo de áudio contendo a voz de um ser humano é harmônico, uma vez que a frequência da voz é, na maior parte do tempo, constante, com algumas variações pontuais.
+
+\hspace{1.5 cm} Em contraponto aos arquivos harmônicos existem os ruídos. Enquanto a constância caracteriza a harmonia, a aleatoriedade caracteriza um ruído. Em um arquivo de áudio, por exemplo, um ruído pode ser percebido como as vozes da plateia ou os sons do prato de uma bateria. Esse sons não possuem constância, tornando mais difícil a sua compressão (em alguns casos a quantidade de espaço ocupado pelos arquivos pode até aumentar).
+
+\section{Análise de Compressão de Arquivos}
+Com o básico da teoria de compressão explicada, podemos fazer alguns testes práticos. Em resumo, iremos comprimir alguns arquivos e avaliar os resultados.
+
+\subsection{Materiais e Métodos}
+Primeiro, desenvolveu-se um código na linguagem de programação "C". Nele, sete arquivos são gerados, cada um contendo exatos 10 MB. Esse arquivos, em formato binário, contém informações numéricas que variam de 0 a 255. Se pesarmos nele como um arquivo de texto, cada caractere é composto por \textit{8-bits}.
+
+\hspace{1.5 cm} Esse arquivos, então foram comprimidos em dois compressores diferentes, o \textit{WinRAR} e o \textit{7-zip} $-$ no caso do primeiro os arquivos foram comprimidos duas vezes, uma no formato \textit{.zip} e outra no formato \textit{.rar}.
+
+\hspace{1.5 cm} Quanto aos parâmetros da compressão, seguiu-se o seguinte modelo: o arquivo de controle era os parâmetros padrão dos \textit{softwares} utilizados; então outras duas compressões eram feitas, uma com a pior qualidade possível e outra com a melhor qualidade possível, esse último em casos particulares. Optou-se por assim fazer, pois, na maior parte dos casos o formato padrão de compressão já era o suficiente para reduzir drasticamente o tamanho dos arquivos; assim, não fazia sentido verificar mais casos.
+
+\hspace{1.5 cm} Quanto às análises de resultados, optou-se por avaliar as compressões em pares. Assim será feito, pois, os arquivos gerados possuem muita proximidade entre si, tornando mais fácil uma análise dos dois em conjunto, o invés de cada um separadamente. O código pode ser visto clicando \href{https://github.com/chevitaresebruno/BSI_IFES_SERRA_FSM/tree/main}{aqui}\footnote{Não conseguimos anexar o documento no Latex e o ava só permite um arquivo por envio. Assim, estamos deixando a forma de acessá-lo por aqui mesmo: https://github.com/chevitaresebruno/BSI_IFES_SERRA_FSM/tree/main}
+
+
+\section{Compressão de Ruídos e Ruídos Compactos}
+Os dois primeiros arquivos gerados possuem caracteres aleatórios, nenhum critério foi escolhido para os fazer. Contudo, em um deles os caracteres variam de 0 a 255 enquanto o outros os caracteres variam de 0 a 25. Conforme explicado anteriormente, ruídos são informações de difícil compressão, onde às vezes o espaço ocupado pode até aumentar.
+
+\hspace{1.5 cm} Informações aleatórias comportam-se como ruídos. Como os dados são desconexos entre si, sem uma ordem lógica de continuidade entre eles, a sua compressão é bastante complexa. Apesar disso, os dois arquivos diferem-se no espaço amostral existente entre eles. O primeiro arquivo, \textit{random.bin} possui caracteres que variam de 0 a 255, totalizado 256 possibilidades de caracteres, já o segundo, \textit{random_cut.bin}, possui caracteres que variam de 0 a 25, totalizando 26 possibilidades. Por mais que ambos sejam ruídos, espera-se que o primeiro tenha uma compressão bastante ruim, já o segundo deve possuir melhores taxas de compressão.
+
+\hspace{1.5 cm} Após alguns testes, como previamente explicado, obtivemos os resultados expressos na \ref{tab:compressão_rand}. Como pode-se observar, os arquivos cut obtiveram uma taxa de compressão significativa, de ao menos 30 \%. Por outro lado, os arquivos randômicos foram bem pior comprimidos, inclusive aumentando sua taxa de compressão (apesar de ser um aumento bem pequeno, expresso pelos números negativos). Tudo dentro do esperado baseado na teoria.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Taxa de Compressão dos Arquivos Randômicos}
+    \label{tab:compressão_rand}
+    \begin{tabular}{c|c|c}
+    \hline
+    \textbf{Arquivos} & \textbf{Intensidade da Compressão} & \textbf{Taxa de Compressão (\%)} \\ \hline
+    random\_n.zip & Normal & -0,02\% \\ \hline
+    random\_n.7z & Normal & -0,01\% \\ \hline
+    random\_n.rar & Normal & 0,00\% \\ \hline
+    random\_b.zip & Melhor & -0,02\% \\ \hline
+    random\_b.7z & Melhor & -0,01\% \\ \hline
+    random\_b.rar & Melhor & 0,00\% \\ \hline
+    random\_cut\_f.7z & Mais Rápido & 33,21\% \\ \hline
+    random\_cut\_n.zip & Normal & 36,13\% \\ \hline
+    random\_cut\_n.7z & Normal & 38,25\% \\ \hline
+    random\_cut\_b.zip & Melhor & 36,13\% \\ \hline
+    random\_cut\_b.7z & Melhor & 38,25\% \\ \hline
+    random\_cut\_b.rar & Melhor & 34,95\% \\ \hline
+    \end{tabular}
+    Fonte: Autoria Própria
+\end{table}
+
+\hspace{1.5 cm} Uma observação curiosa pode ser vista na compressão dos arquivos \textit{random\_cut}. Perceba que os arquivos comprimidos pelo \textit{software 7zip}  obtveram uma melhor compressão quanto pior fosse o algoritmo de desassociação utilizado. É como se "muito ajudasse quem não atrapalhasse". Não encontramos uma resposta definitiva para isso.
+
+\section{Compressão de PA e PG}
+Agora, vamos avaliar a compressão de PAs e PGs. Antes de tudo, no entanto, devemos ressaltar a semelhança entre PAs e PGs.
+
+\hspace{1.5 cm} Uma progressão aritmética possui múltiplas interpretações. Pode-se interpreta-lá pela notação geométrica, como a descrição de uma reta afim; bem como uma descrição algébrica, denotada por um somatório. A vantagem da interpretação geométrica é que ela resulta em uma função, facilitando a sua implementação e compreensão. A seguinte função denota uma PA, onde a_1 representa o termo inicial, r a razão e i o iésimo termo da PA:  \begin{equation*} f(i) = a_1 + (i-1) \cdot r \end{equation*}.
+
+\hspace{1.5cm} Assim como uma PA, uma PG possui fórmula para o termo geral bastante semelhante, com algumas diferenças, mas uma estrutura muito parecida. Tanto a PA quanto a PG possuem termo inicial e uma raiz, mas o cálculo dela é diferente. Logo, é natural pensarmos que ambas as compressões serão bem próximas.  \begin{equation*} f(i) = a_1 \cdot r^{i-1} \end{equation*}.
+
+\hspace{1.5 cm} Vamos parar de deduzir e observar os resultados da \ref{tab:compressão_papg}\footnote{A taxa de compressão foi calculada seguindo a seguinte fórmula: 1 - (tamanho comprimido / tamanho original)}. Todas as taxas de compressão foram muito satisfatórias e próximas, bem como o esperado.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Taxa de Compressão dos Arquivos de PA e PG}
+    \label{tab:compressão_papg}
+    \begin{tabular}{c|c|c}
+    \hline
+    \textbf{Arquivo} & \textbf{Intensidade de Compressão} & \textbf{Taxa de Compressão (\%)} \\ \hline
+    pa\_n.zip & Normal & 99,90\% \\ \hline
+    pa\_n.7z & Normal & 99,98\% \\ \hline
+    pa\_n32.rar & Normal & 99,99\% \\ \hline
+    pa\_b.zip & Melhor & 99,90\% \\ \hline
+    pa\_b.rar & Melhor & 99,99\% \\ \hline
+    pa\_m.7z & Melhor & 99,98\% \\ \hline
+    pa\_n.7z & Normal & 99,98\% \\ \hline
+    pg\_b.zip & Melhor & 99,90\% \\ \hline
+    pg\_n.zip & Normal & 99,90\% \\ \hline
+    pg\_b.7z & Melhor & 99,98\% \\ \hline
+    pg\_n.7z & Normal & 99,98\% \\ \hline
+    pg\_n.rar & Normal & 99,99\% \\ \hline
+    \end{tabular}
+
+    Fonte: Autoria Própria
+\end{table}
+
+\hspace{1.5 cm} A partir das análises, podemos verificar que o \textit{software 7zip} obteve taxas de compressões menores que o seu adversário, ação decorrente do método de compressão interno do próprio programa, uma vez que mudamos diversos parâmetros, como o tamanho do dicionário e a intensidade da compressão, mas os resultados foram os mesmos.
+
+\subsection{Considerações Finais}
+Após as análises previamente feitas, podemos chegar à algumas conclusões. A primeira delas é sobre a eficiência dos \textit{softwares} utilizados: o \textit{WinRar} provou-se superior, com as melhores taxas de compressão, onde o ideal é utilizar o formato \textit{.rar}.
+
+\hspace{1.5 cm} Além disso, observou-se que os algoritmos são bastante competentes em compreender padrões comuns na natureza, como a composição de PAs e PGs. Por fim, ruídos realmente são problemáticos para os algoritmos. Sua compressão muitas vezes é pior que a manutenção do arquivo íntegro, sendo um problema não muito grave dependendo dos padrões de arquivos a serem comprimidos.
