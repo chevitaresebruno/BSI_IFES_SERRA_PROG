@@ -1,11 +1,11 @@
 package model.serializers;
 
 
-public class SerializerResponseDTO
+public class OperationSerializerResponseDTO
 {
     public double resultado;
 
-    public SerializerResponseDTO(double resultado)
+    public OperationSerializerResponseDTO(double resultado)
     {
         this.resultado = resultado;
     }

@@ -1,4 +1,4 @@
-package view;
+package frontend.views;
 
 
 public interface IView

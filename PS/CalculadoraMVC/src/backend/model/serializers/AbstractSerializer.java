@@ -13,9 +13,9 @@ public abstract class AbstractSerializer
         this.operacao = operacao;
     }
 
-    public SerializerResponseDTO call(SerializerSenderDTO operandos) throws SerializerError
+    public OperationSerializerResponseDTO call(OperationSerializerSenderDTO operandos) throws SerializerError
     {
-        return new SerializerResponseDTO(this.operacao.calcular(operandos.operando1, operandos.operando2));
+        return new OperationSerializerResponseDTO(this.operacao.calcular(operandos.operando1, operandos.operando2));
     }
 }
 

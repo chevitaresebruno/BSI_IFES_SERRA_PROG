@@ -1,6 +1,6 @@
 package model.serializers.operations;
 
-import model.operations.Soma;
+import model.operations.aritimeticas.Soma;
 import model.serializers.AbstractSerializer;
 
 

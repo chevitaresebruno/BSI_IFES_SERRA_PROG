@@ -1,6 +1,7 @@
-package model.operations;
+package model.operations.aritimeticas;
 
 import model.errors.BaseError;
+import model.operations.IOperation;
 
 public class Soma implements IOperation
 {

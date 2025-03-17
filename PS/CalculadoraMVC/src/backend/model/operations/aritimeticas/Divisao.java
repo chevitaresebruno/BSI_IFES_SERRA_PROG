@@ -1,6 +1,7 @@
-package model.operations;
+package model.operations.aritimeticas;
 
 import model.errors.operations.DivisionByZero;
+import model.operations.IOperation;
 
 public class Divisao implements IOperation
 {

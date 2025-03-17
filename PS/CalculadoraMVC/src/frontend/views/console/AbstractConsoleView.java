@@ -1,8 +1,7 @@
-package view;
+package frontend.views.console;
 
+import frontend.views.IView;
 import java.util.Scanner;
-
-import controller.otp.OperatorSenderDTO;
 
 
 public abstract class AbstractConsoleView implements IView
@@ -86,17 +85,5 @@ public abstract class AbstractConsoleView implements IView
                 System.err.println("Atenção, informe somente números!");
             }
         }
-    }
-
-    protected OperatorSenderDTO pegarOperandos()
-    {
-        double op1, op2;
-
-        System.out.print("Valor 1: ");
-        op1 = this.pegarOperando();
-        System.out.print("Valor 2: ");
-        op2 = this.pegarOperando();
-
-        return new OperatorSenderDTO(op1, op2);
     }
 }

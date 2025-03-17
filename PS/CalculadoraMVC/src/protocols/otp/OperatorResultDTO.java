@@ -1,6 +1,4 @@
-package controller.otp;
-
-import controller.otp.errors.BaseError;
+package protocols.otp;
 
 
 public class OperatorResultDTO

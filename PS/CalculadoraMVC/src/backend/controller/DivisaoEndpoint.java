@@ -1,4 +1,4 @@
-package controller.endpoints;
+package controller;
 
 import model.serializers.operations.DivisionSerializer;
 

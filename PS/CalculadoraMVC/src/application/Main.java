@@ -1,7 +1,7 @@
 package application;
 
-import view.IView;
-import view.ViewCalculadora;
+import frontend.views.IView;
+import frontend.views.console.ViewCalculadora;
 
 
 public class Main
