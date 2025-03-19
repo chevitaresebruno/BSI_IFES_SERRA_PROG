@@ -37,6 +37,9 @@ class Fracao:
         self.__num = int(self.__num)
 
         return self
+    
+    def oposto(self):
+        return Fracao(self.__num*-1, self.__den)
 
     @property
     def mista(self) -> str:
@@ -71,8 +74,7 @@ class Fracao:
             return self + Fracao.criarDeDecimal(other)
         elif(otherType == type(self)):
             mmc: int = lcm(self.__den, other.__den)
-
-            return Fracao(int(self.__num*mmc/self.__den) + int(other.__num*mmc/other.__den), mmc)
+            return Fracao((self.__num*mmc//self.__den) + int(other.__num*mmc//other.__den), mmc)
 
         raise NotImplementedError(f"Operações de soma entre {otherType} e Fração não foi definida")
 
@@ -84,8 +86,8 @@ class Fracao:
         elif(otherType == float):
             return self - Fracao.criarDeDecimal(other)
         elif(otherType == type(self)):
-            denMul: int = self.__den * other.__den
-            return Fracao(int(self.__num*denMul) - int(other.__num*denMul), denMul)
+            mmc: int = lcm(self.__den, other.__den)
+            return Fracao((self.__num*mmc//self.__den) - int(other.__num*mmc//other.__den), mmc)
 
         raise NotImplementedError(f"Operações de subtração entre {otherType} e Fração não foi definida")
     
@@ -103,7 +105,7 @@ class Fracao:
 
         raise NotImplementedError(f"Operações de multiplicação entre {otherType} e Fração não foi definida")
     
-    def __div__(self, other: int | float):
+    def __truediv__(self, other: int | float):
         otherType = type(other)
 
         if(otherType == int):
@@ -117,14 +119,19 @@ class Fracao:
 
         raise NotImplementedError(f"Operações de divisão entre {otherType} e Fração não foi definida")
     
+    def __eq__(self, other) -> bool:
+        return self.decimal == other
+
     def __str__(self) -> str:
         if(self.__den == 0):
             return "Indefinido"
         if(self.__den == 1):
             return self.__num.__str__()
-        
-        return f"{self.__num}/{self.__den}"
-    
+        if(self.__num == 0):
+            return "0"
+
+        return f"{self.__num}/{self.__den}"        
+
     @staticmethod
     def criarDeDecimal(numero: float):
         frac: Fracao = Fracao(0)

@@ -1,16 +1,14 @@
 from MatrizEquacoes import MatrizEquacoes
-from Fracao import Fracao
-
+from time import time
 
 def main() -> int:
-    f = Fracao.criarDeDecimal(-1.5).irredutivel()
-    print(f)
+    t1 = time()
+    m = MatrizEquacoes(10, 10)
+    m.irredutibilizar()
+    m.escalonar()
+    t2 = time()
 
-    quit()
-    m = MatrizEquacoes(3, 3)
-
-    m.print()
-
+    print(t2-t1)
     return 0
 
 
