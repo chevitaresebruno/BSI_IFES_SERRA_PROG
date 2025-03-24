@@ -4,4 +4,7 @@
 *.venv
 *target/
 
+*.rar
+*.zip
+
 *__pycache__/
