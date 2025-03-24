@@ -67,3 +67,10 @@ build/
 
 ### VS Code ###
 .vscode/
+
+*target/
+
+*.rar
+*.zip
+
+*__pycache__/

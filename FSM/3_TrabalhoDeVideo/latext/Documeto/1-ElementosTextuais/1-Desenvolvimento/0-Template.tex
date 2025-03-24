@@ -1,0 +1,74 @@
+\captionsetup{justification=centering,margin=0cm}
+\label{cap:REF}  % Forma de referenciar o capítulo no comando \ref
+
+%inicio do capitulo
+\chapter[TÍTULO]{TÍTULO}
+\index{TÍTULO}
+
+
+
+\section{TABELAS NA ABNT}
+% MODELOS DE TABELAS NA ABNT
+
+\begin{table}[htbp]
+\centering
+
+\caption{Título da tabela}
+\label{tab:Tabela1}
+
+\begin{tabularx}{\textwidth}{XCCC}
+    \hline
+        
+    \multicolumn{1}{c}{\textbf{Cabeçalho}} &  \textbf{Cabeçalho} & \textbf{Cabeçalho} & \textbf{Cabeçalho} \\ \hline
+
+    Linha 1 & Linha 1 & Linha 1 & Linha 1 \\
+    Linha 2 & Linha 2 & Linha 2 & Linha 2 \\
+
+    \hline
+    
+\end{tabularx}
+
+\autoriaPropria
+
+\end{table}
+
+Referenciado a Tabela \ref{tab:Tabela1}
+
+\begin{table}[htbp]
+
+\begin{tabularx}{\textwidth}{XCCC}
+    \hline
+        
+    \multicolumn{1}{c}{\textbf{Cabeçalho}} & \textbf{Cabeçalho} & \textbf{Cabeçalho} & \textbf{Cabeçalho} \\ \hline
+
+    \multirow{2}{*}{Linhas 1 e 2} & Linha 1 & Linha 1 & Linha 1 \\
+     & Linha 2 & Linha 2 & Linha 2 \\
+
+    \hline
+    
+\end{tabularx}
+\end{table}
+
+
+% ATENÇÃO PARA O USO DOS COMANDOS \footnotemark e \footnotetext{}
+\begin{table}[htbp]
+\centering
+
+\begin{tabularx}{\textwidth}{XCCC}
+    \hline
+        
+    \multicolumn{1}{c}{\textbf{Cabeçalho}} & \textbf{Cabeçalho} & \textbf{Cabeçalho} & \textbf{Cabeçalho} \\ \hline
+
+    \multirow{2}{8em}{Se precisar de linhas horizontais\footnotemark} & Linha 1 & Linha 1 \\ \hhline{~---}
+     & Linha 2 & Linha 2 & Linha 2 \\
+
+    \hline
+    
+\end{tabularx}
+\end{table}
+\footnotetext{Para esses comandos funcionarem, coloque o footnotetext fora da tabela}
+
+\section{Texto}
+TEXTO NORMAL
+
+\paragrafo Espaçamento de Parágrafo\index{Parágrafo}

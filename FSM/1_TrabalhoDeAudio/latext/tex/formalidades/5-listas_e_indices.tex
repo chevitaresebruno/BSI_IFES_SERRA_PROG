@@ -1,0 +1,50 @@
+
+\renewcommand{\afterloftitle}{\null\\[5mm]}
+\renewcommand{\afterlottitle}{\null\\[5mm]}
+\renewcommand{\afterloqtitle}{\null\\[5mm]}
+\renewcommand{\aftertoctitle}{\null\\[5mm]}
+
+
+%%% ====================================================================
+%%% Lista de figuras
+\renewcommand{\listfigurename}{LISTA DE FIGURAS}
+\pdfbookmark[0]{\listfigurename}{lof}
+\listoffigures*
+\cleardoublepage
+
+
+%%% ====================================================================
+%%%Lista de tabelas
+    \renewcommand{\listtablename}{LISTA DE TABELAS}
+    \pdfbookmark[0]{\listtablename}{lot}
+    \listoftables*
+    \cleardoublepage
+
+
+
+%%% ====================================================================
+%%% Lista de quadros
+\pdfbookmark[0]{\listadequadrosname}{loq}
+\listadequadros*
+\cleardoublepage
+
+
+%%% ====================================================================
+%%% Lista de siglas
+\begin{siglas}
+    \simb{Ifes}       Instituto Federal de Ensino, Ciências e Tecnologia do Espírito Santo 
+
+    \simb{PA} Progressão Aritmética
+    \simb{PG} Progressão Geométrica
+    \simb{MB} Mega Bytes
+\end{siglas}
+
+\cleardoublepage
+
+
+%%% ====================================================================
+%%% Sumário --- Table of Contents
+\renewcommand{\contentsname}{SUMÁRIO}
+\pdfbookmark[0]{\contentsname}{toc}
+\tableofcontents*
+\cleardoublepage

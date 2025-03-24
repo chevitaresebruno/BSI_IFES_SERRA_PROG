@@ -1,0 +1,127 @@
+\documentclass[times,english,brazil,oneside,a4paper,fleqn]{ifes8}
+
+\usepackage[utf8]{inputenc}
+\usepackage{lastpage}           
+\usepackage[alf]{abntex2cite}
+\usepackage{microtype}          
+\usepackage{morefloats}        
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usetikzlibrary[topaths]
+\usepackage{mathtools}
+\usepackage[final]{pdfpages}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{boxhandler}
+\usepackage[normalem]{ulem}
+\usepackage{dirtytalk}
+\usepackage{float}
+\usepackage{siunitx}
+\usepackage{svg}
+\usepackage[none]{hyphenat}
+\usepackage{breqn}
+\usepackage{upgreek}
+\usepackage{amsmath}
+\hyphenation{es-ta-be-le-ci-men-to}
+\raggedbottom
+\selectlanguage{brazil}
+\setlength{\abovecaptionskip}{5pt}
+
+
+%%% Define que todos os códigos fontes construídos com o ambiente
+%%% `lstlisting' terão uma borda simples.
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve}, 
+  numbers=left,
+  stepnumber=1,    
+  firstnumber=1,
+  numberfirstline=true% string literal style,
+   frame=top,frame=bottom, frame=single,
+   captionpos=t,
+   literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+  {à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+  {À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+  {ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+  {Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+  {â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+  {Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+  {œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+  {ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+  {ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+  {€}{{\EUR}}1 {£}{{\pounds}}1
+}
+
+\newcommand{\ifestex}{\textsf{Ifes$8$}}
+
+
+% Informação aqui
+% Preencher
+% Informações sobre o trabalho
+
+\titulo{Um Estudo das Consequências da Compressão de Arquivos Multimídia em Diferentes Contextos de Áudio}
+\autor{Bruno da Fonseca Chevitarese e Luiz Felipe Elizeta}
+\autorficha{}
+\local{Serra}
+\data{2023}
+\orientador[Orientador:]{Prof. Dr. Flávio Giraldeli}
+\instituicao{Instituto Federal de Educação, Ciência e Tecnologia do Espírito Santo}
+\curso{Curso Superior de Bacharelado em Sistemas de Informação}
+\tipotrabalho{Trabalho de Acompanhamento de Disciplina}
+\preambulo{Este documento tem por objetivo cumprir com o acordo pré-estabelecido de avaliações da disciplina Fundamentos de Sistema Multimídia, lecionada pelo professor Flávio Giraldeli}
+
+
+% ----------------------------------------------------------
+% Documento
+% ----------------------------------------------------------
+
+\begin{document}
+\setsecnumformat{\csname the#1\endcsname\space}
+\renewcommand{\afterchapternum}{\hspace{-4pt}}
+
+\imprimircapa
+\addtocounter{page}{-1}
+
+\imprimirfolhaderosto*
+
+
+\addtocounter{page}{-1}
+
+
+% ----------------------------------------------------------
+% FORMALIDADES
+% ----------------------------------------------------------
+\include{tex/formalidades/5-listas_e_indices}
+
+% ----------------------------------------------------------
+% ELEMENTOS TEXTUAIS
+% ----------------------------------------------------------
+\textual
+\captionsetup{justification=justified,singlelinecheck=false}
+
+\include{tex/capitulos/1-apresentação}
+\include{tex/capitulos/Cap1-introducao}
+\include{tex/capitulos/Cap3-compressao_de_arquivos}
+\include{tex/capitulos/Cap4-ÁudioBinaural}
+\include{tex/capitulos/Cap5}
+
+
+
+
+% % ----------------------------------------------------------
+% % ELEMENTOS PÓS-TEXTUAIS
+
+\bibliography{references}
+
+\end{document}

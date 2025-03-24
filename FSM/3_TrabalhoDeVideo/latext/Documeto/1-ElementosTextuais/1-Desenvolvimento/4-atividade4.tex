@@ -1,0 +1,204 @@
+\captionsetup{justification=centering,margin=0cm}
+\label{cap:atividade4}  % Forma de referenciar o capítulo no comando \ref
+
+%inicio do capitulo
+\chapter[Atividade 4 - Conversão de vídeo]{Atividade 4 - Conversão de vídeo}
+
+A fim de descobrir as nuances de dois formatos de vídeo x264, x265, AV1 e suas diferenças, a próxima atividade revelará resultados oriundos de uma série de testes para identificar parâmetros para um vídeo considerado bom (transparente) e um ruim (tolerável). Os vídeos utilizados nessa tarefa foram: Big Bunk Bunny e Tears Of Steel.
+
+\section{Atividade 4A - Comprimindo para H.264/AVC}
+Irei partir do formato mais antigo e ainda muito utilizado ainda nos dias de hoje, o x264, os resultados serão expostos a seguir.
+
+\paragrafo Big Bunk Bunny: Neste vídeo, iniciei testando o extremo da compressão, gerando um resultado péssimo como esperado. Na tentativa de achar algo transparente, cheguei em 28,5 como fator de qualidade com \textit{bitrate} médio de 1.714Kbps. Enquanto que para algo tolerável, aos olhos bem treinados, a partir de 37, com bitrate médio de 779Kbps. A partir deste ponto o vídeo começa a dar desconforto ao assistir, sendo possível estender até um máximo de 39, que é quando a qualidade fica muito ruim.
+
+\paragrafo Tearls Of Steel: Aqui seguimos a mesma lógica da anterior entretanto o grau de transparência é alcançado até 30, bitrate de 1.623Kbps, e de tolerância em 38, bitrate de 841Kbps, e apesar de possuir um fator maior em comparação ao outro vídeo, no fator máximo ele incomoda consideravelmente mais. 
+
+\paragrafo No geral, a compressão dos vídeos foram rápidas, demorando em média apenas 3 minutos para os vídeos. A Tabela \ref{tab:tabela4a} exibe o Tamanho, bitrate e ratio de cada compressão a fim de melhorar a visualização dos dados.
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 A}
+    \label{tab:tabela4a}
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C}
+        \hline
+        \textbf{Vídeo} & \textbf{Original} & \textbf{Lossless} & \textbf{Lossy} & \textbf{Bitrate Medio (kpbs)} & \textbf{Ratio (original)} & \textbf{Ratio (lossless)} \\ \hline
+        Big Buck Bunny (HQ) & 42.462,79 & 10.524,19 & 121,9 & 1714 & 0,00287 & 0,01158 \\ \hline
+        Tears Of Steel (HQ) & 44.256,58 & 13.359,21 & 142 & 1623 & 0,00321 & 0,01063 \\ \hline
+        Big Buck Bunny (LQ) & 42.462,79 & 10.524,19 & 55,42 & 779 & 0,00131 & 0,01158 \\ \hline
+        Tears Of Steel (LQ) & 44.256,58 & 13.359,21 & 73,57 & 841 & 0,00166 & 0,01063 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+
+\paragrafo Partindo para uma comparação de eficiência entre CPU e GPU para compressão de vídeo. Na ocasião é uma disputa entre rx580 , que é uma placa gráfica já antiga, e um xeon, que possui muitos núcleos atuando em um programa muito paralelizado, tornando uma disputa relativamente equilibrada. Abaixo a Tabela \ref{tab:tabela4a-continuação} exibe o FPS médio do processo.
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 A - Continuação}
+    \label{tab:tabela4a-continuação}
+    \begin{tabularx}{\textwidth}{X|C|C}
+        \hline
+        \multicolumn{3}{c}{\textbf{FPS}} \\ \hline
+        \textbf{Vídeo} & \textbf{h264} & \textbf{VCE h264} \\ \hline
+        Tears Of Steel & 107,1 & 124,2 \\ \hline
+        Big Buck Bunny & 106,5 & 112,5 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+\paragrafo Apesar da GPU ter grande vantagem por ser especializada em calculo de matrizes, a CPU possui muitos núcleos para compensar, de maneira a ser muito eficiente para compressão, criando uma diferença consideravelmente pequena entre eles dada sua otimização para tarefa.
+
+\section{Atividade 4B - Comprimindo para H.265/HEVC}
+Agora partindo para o próximo formato, o h265. Teoricamente ele possui uma melhor qualidade de compressão, apesar de ser um pouco mais custoso computacionalmente, é isso que iremos observar a partir de agora.
+
+\paragrafo Big Bunk Bunny: Se realmente houveram melhorarias em relação à sua versão an terior, não sabemos dizer só com estes testes, entretanto o formato ainda pesa na compressão, trazendo artefatos e má qualidade com facilidade se não prestar atenção no fator qualidade. Para vídeos transparentes, foi encontrado o fator 26 com \textit{bitrate} de 1708 kbps. Variando um pouco esses parâmetros, obtém-se um vídeo tolerável até o fator 30 com \textit{bitrate} de 1096 kbps; com uma compressão mais abrupta, a qualidade da imagem passa a ser um grande incômodo.
+
+\paragrafo Tearls Of Steel: Aqui serei mais direto, fator qualidade 27,5 para transparente e 32 o tolerável com bitrate de 1596 e 868 respectivamente.
+
+\paragrafo Este formato demorar pouco mais para processar os vídeos, pouco menos de 5 minutos cada, a qualidade é boa com um tamanho/\textit{bitrate} realmente otimizado. As Tabelas \ref{tab:tabela4b} e \ref{tab:tabela4b-continuação} trazem informações detalhadas dos testes, permitindo uma comparação mais específica.
+
+%bunny
+%transparente 26
+%toleravel 30
+%steel
+%transparente 27,5
+%toleravel 32
+
+\paragrafo 
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 B}
+    \label{tab:tabela4b}
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C}
+        \hline
+        \textbf{Vídeo} & \textbf{Original} & \textbf{Lossless} & \textbf{Lossy} & \textbf{Bitrate Medio (kpbs)} & \textbf{Ratio (original)} & \textbf{Ratio (lossless)} \\ \hline
+        Big Buck Bunny (HQ) & 42.462,79 & 10.524,19 & 121,43 & 1708 & 0,00286 & 0,01154 \\ \hline
+        Tears Of Steel (HQ) & 44.256,58 & 13.359,21 & 139,67 & 1596 & 0,00316 & 0,01045 \\ \hline
+        Big Buck Bunny (LQ) & 42.462,79 & 10.524,19 & 77,94 & 1096 & 0,00184 & 0,00741 \\ \hline
+        Tears Of Steel (LQ) & 44.256,58 & 13.359,21 & 75,99 & 868 & 0,00172 & 0,00569 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 B - Continuação}
+    \label{tab:tabela4b-continuação}
+    \begin{tabularx}{\textwidth}{X|C|C}
+        \hline
+        \multicolumn{3}{c}{\textbf{FPS}} \\ \hline
+        Vídeo & h265 & VCE h265 \\ \hline
+        Tears Of Steel & 63,6 & 121,4 \\ \hline
+        Big Buck Bunny & 66,4 & 112,5 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+\section{Atividade 4C - Comprimindo para AV1}
+Finalmente alcançamos o ultimo formato e mais pesado computacionalmente entre eles, trazendo (teoricamente) uma ótima qualidade, afinal, grandes empresas estão por traz dele. Para melhor dinamismo irei apresentar apenas as tabelas e o restante é fácil de explicar.
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 C}
+    \label{tab:tabela4C}
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C}
+        \hline
+        \textbf{Vídeo} & \textbf{Original} & \textbf{Lossless} & \textbf{Lossy} & \textbf{Bitrate Medio (kpbs)} & \textbf{Ratio (original)} & \textbf{Ratio (lossless)} \\ \hline
+        Big Buck Bunny (HQ) & 42.462,79 & 10.524,19 & 57,63 & 810 & 0,00136 & 0,00548 \\ \hline
+        Tears Of Steel (HQ) & 44.256,58 & 13.359,21 & 128,53 & 1469 & 0,00290 & 0,00962 \\ \hline
+        Big Buck Bunny (LQ) & 42.462,79 & 10.524,19 & 26,85 & 378 & 0,00063 & 0,00255 \\ \hline
+        Tears Of Steel (LQ) & 44.256,58 & 13.359,21 & 33,08 & 378 & 0,00075 & 0,00248 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 C - Continuação}
+    \label{tab:tabela4c-continuação}
+    \begin{tabularx}{\textwidth}{XC}
+        \hline
+        \multicolumn{2}{c}{\textbf{FPS}} \\ \hline
+        Vídeo & VCE AV1 \\ \hline
+        Tears Of Steel & 10,9 \\
+        Big Buck Bunny & 10,3 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+
+
+\end{table}
+
+\paragrafo Em Big Buck Bunny, o fator de qualidade transparente é 52 e tolerante 63, enquanto para Tears Of Steel os valores são 53 e 63 respectivamente. Quanto a questão do esforço computacional, imaginei que seria demasiado custoso, entretanto não tanto. Um video com Enconder Preset 3, demorou em média 33 minutos para finalizar, enquanto o mesmo com 4 mudou o tempo para 25, o tornando possivelmente inviável para quantidades massivas de vídeos sem uma máquina potente o suficiente ou especializada para a tarefa.
+
+
+%bunny
+%transparente 52
+%toleravel 63
+%steel
+%transparente 53
+%toleravel 63
+
+\section{Atividade 4D - Avaliação geral do desempenho dos formatos}
+Agora é o momento de comparar os diferentes codecs. Isso é particularmente importante para acompanharmos a evolução dos algoritmos. Todos os arquivos podem ser acessados no link \url{https://drive.google.com/drive/folders/160xDMlNdiJo1Q8intSz2KlbsdiY7OROl}.
+
+\paragrafo O h.264 foi competente em sua função. Apesar da nítida baixa qualidade, o vídeo pode ser assistido sem muitos prejuízos e a sua codificação é bem rápida, se tornando viável para quem não quer muita dor de cabeça com vídeos. No entanto, o h.265 não nos impressionou tanto. Há uma evolução considerável em relação ao h.264, qualidade melhor de imagem, menor presença de artefato, dentre outras vantagens. No entanto, ele deixou a desejar no sentido da velocidade e na taxa de compressão. Pela Tabelas abaixo, podemos observar que a taxa média de compressão foi de, somente, 0,61\%, um resultado quase ínfimo, entretando, inegavelmente com uma qualidade pouco superior.
+
+\paragrafo Em relação ao AV1, esse sim nos impressionou. Se comparado ao h.265 o arquivo também não é tão menor, mas a qualidade da imagem é muito superior. Os artefatos aparecem deforma reduzida e mesmo parâmetros pouco otimizados são suficientes. Digamos que é preciso fazer "muita besteira" para o vídeo ficar ruim.
+
+\paragrafo Nos formatos de vídeo em que se utiliza o hardware, a compressão deixou muito a desejar, demonstrando resultados ruins.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 D}
+    \label{tab:tabela4d}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C|C|C|C}
+        \hline
+        
+        Vídeo & Original & Lossless & Tamanho & Bitrate Medio (kpbs) & Fator de Quali- dade & Velocidade de Compres- são & Ratio (\%) [Arquivo / Original] & Ratio (\%) [Arquivo / Lossless] & Ratio (\%) [Arquivo / h.264] \\ \hline
+        Big Buck Bunny h.264HQ & 42.462,79 & 10.524,19 & 121,90 & 1.714,00 & 28,50 & 107,1 & 0,29\% & 1,16\% & - \\ \hline
+        Big Buck Bunny h.264LQ & 42.462,79 & 10.524,19 & 55,42 & 779,00 & 37,00 & - & 0,13\% & 0,53\% & - \\ \hline
+        Big Buck Bunny h.264 VCE HQ & 42.462,79 & 10.524,19 & 505,00 & 7.104,00 & 28,50 & 124,2 & 1,19\% & 4,80\% & - \\ \hline
+        Big Buck Bunny h.265HQ & 42.462,79 & 10.524,19 & 57,63 & 810,00 & 26,00 & 63,60 & 0,14\% & 0,55\% & 0,47 \\ \hline
+        Big Buck Bunny h.265LQ & 42.462,79 & 10.524,19 & 26,85 & 378,00 & 30,00 & - & 0,06\% & 0,26\% & 0,48 \\ \hline
+        Big Buck Bunny h.265 VCE HQ & 42.462,79 & 10.524,19 & 263,00 & 3.710,00 & 26,00 & 121,40 & 0,62\% & 2,50\% & 0,52 \\ \hline
+        Big Buck Bunny AV1 HQ & 42.462,79 & 10.524,19 & 121,43 & 1.708,00 & 52,00 & - & 0,29\% & 1,15\% & 1,00 \\ \hline
+        Big Buck Bunny AV1 LQ & 42.462,79 & 10.524,19 & 77,94 & 1.096,00 & 63,00 & - & 0,18\% & 0,74\% & 1,41 \\ \hline
+    \end{tabularx}
+
+    \autoriaPropria
+\end{table}
+
+
+\begin{table}[H]
+    \centering
+    \caption{Tabela 4 D}
+    \label{tab:tabela4d}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{X|C|C|C|C|C|C|C|C|C}
+        \hline
+        
+        Vídeo & Original & Lossless & Tamanho & Bitrate Medio (kpbs) & Fator de Quali- dade & Velocidade de Compres- são & Ratio (\%) [Arquivo / Original] & Ratio (\%) [Arquivo / Lossless] & Ratio (\%) [Arquivo / h.264] \\ \hline
+        Tears Of Steel h.264HQ & 44.256,58 & 13.359,21 & 142,00 & 1.623,00 & 30,00 & 106,5 & 0,32\% & 1,06\% & - \\ \hline
+        Tears Of Steel h.264LQ & 44.256,58 & 13.359,21 & 73,57 & 841,00 & 38,00 & - & 0,17\% & 0,55\% & - \\ \hline
+        Tears Of Steel h.264 VCE HQ & 44.256,58 & 13.359,21 & 389,00 & 4.456,00 & 30,00 & 112,5 & 0,88\% & 2,91\% & - \\ \hline
+        Tears Of Steel h.265HQ & 44.256,58 & 13.359,21 & 128,53 & 1.469,00 & 27,50 & 66,40 & 0,29\% & 0,96\% & 1,05 \\ \hline
+        Tears Of Steel h.265LQ & 44.256,58 & 13.359,21 & 33,08 & 378,00 & 32,00 & - & 0,07\% & 0,25\% & 0,60 \\ \hline
+        Tears Of Steel h.265 VCE HQ & 44.256,58 & 13.359,21 & 275,00 & 3.150,00 & 27,50 & 112,50 & 0,62\% & 2,06\% & 0,54 \\ \hline
+        Tears Of Steel AV1 HQ & 44.256,58 & 13.359,21 & 139,67 & 1.596,00 & 53,00 & 10,9 & 0,32\% & 1,05\% & 1,15 \\ \hline
+        Tears Of Steel AV1 LQ & 44.256,58 & 13.359,21 & 75,99 & 868,00 & 63,00 & 10,30 & 0,17\% & 0,57\% & 1,37 \\ \hline
+    \end{tabularx}
+
+
+\end{table}
+        
+
