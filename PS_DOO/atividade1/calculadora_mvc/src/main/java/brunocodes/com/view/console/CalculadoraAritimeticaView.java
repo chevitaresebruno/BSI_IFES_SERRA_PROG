@@ -1,6 +1,6 @@
 package brunocodes.com.view.console;
 
-import brunocodes.com.controllers.pontos_acesso.ListarOperacoesPontoAcesso;
+import brunocodes.com.controllers.pontos_acesso.OperacaoPontoAcesso;
 
 public class CalculadoraAritimeticaView extends AbstractConsoleView
 {
@@ -9,7 +9,7 @@ public class CalculadoraAritimeticaView extends AbstractConsoleView
     public CalculadoraAritimeticaView()
     {
         super();
-        this.operacoesDisponiveis = ListarOperacoesPontoAcesso.listar();
+        this.operacoesDisponiveis = OperacaoPontoAcesso.listarOperacoes();
     }
 
     @Override

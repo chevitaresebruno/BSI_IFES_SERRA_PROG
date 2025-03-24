@@ -19,4 +19,9 @@ public final class OperacaoPontoAcesso
         
         return new OperacaoResposta(resposta.getValorRetorno());
     }
+
+    public static String[] listarOperacoes()
+    {
+        return OperacaoSerializador.listaroperacoes();
+    }
 }
