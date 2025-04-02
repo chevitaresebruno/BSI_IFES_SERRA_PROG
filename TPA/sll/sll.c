@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "./../dependencies.h"
 
 typedef struct SLN SimpleLinkedNode;
 typedef struct SLLH SimpleLinkedListHeader;
@@ -230,3 +229,57 @@ int sllhDestroy(SimpleLinkedListHeader* sllh, void(*valueDestroy)(void*))
     return 1;
 }
 
+
+void sllhAddByFunc(SimpleLinkedListHeader* sllh, const unsigned int times, void*(*generateFunction)())
+{
+    register unsigned int t = times;
+
+    for(t; t > 0; t--)
+        sllhAdd(sllh, generateFunction());
+}
+
+void sllhSwapBody(void* sllh, const unsigned int el1, const unsigned int el2, int(*compareFunc)(void*, void*))
+{
+    SimpleLinkedListHeader* aux;
+    SimpleLinkedNode* aux1;
+    SimpleLinkedNode* aux2;
+    SimpleLinkedNode* aux3;
+
+    register unsigned int i = 0;
+    register unsigned int j = el1;
+
+    if(sllh == NULL)
+        return;
+    
+    aux = (SimpleLinkedListHeader*)sllh;
+
+    aux1 = aux->start;
+    for(i; i > j; i++)
+        aux1 = aux1->next;
+    
+    aux2 = aux1->next;
+    j = el2;
+    for(i=i+1; i<j; i++)
+        aux2 = aux2->next;
+    
+    if(compareFunc(aux1->value, aux2->value) == 0)
+        return;
+
+    aux3 = (SimpleLinkedNode*)malloc(sizeof(SimpleLinkedNode));
+    if(aux3 == NULL)
+        return;
+    
+    aux3->value = aux2->value;
+    aux3->next = aux2->next;
+    aux2->value = aux1->value;
+    aux2->next = aux1->next;
+    aux1->value = aux3->value;
+    aux1->next = aux3->next;
+
+    if(el1 == 0)
+        aux->start = aux2;
+    if(el2 == aux->size)
+        aux->end = aux1;
+
+    free(aux3);
+}

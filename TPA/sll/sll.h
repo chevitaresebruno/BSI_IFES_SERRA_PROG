@@ -175,3 +175,8 @@ unsigned int sllhGetSize(SimpleLinkedListHeader* SimpleLinkedList);
 */
 int sllhDestroy(SimpleLinkedListHeader* SimpleLinkedList, void(*detroyFunction)(void*));
 
+
+/*
+    @brief Adiciona "times" elementos dentro da lista baseado em uma função de geração dos valores.
+*/
+void sllhAddByFunc(SimpleLinkedListHeader* sllh, const unsigned int times, void*(*generateFunction)());
