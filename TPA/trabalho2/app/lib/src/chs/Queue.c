@@ -129,4 +129,3 @@ void* slqPop(SimpleLinkedQueue* q)
     return v;
 }
 
-

@@ -1,6 +1,7 @@
 #ifndef SHARED_H
 #define SHARED_H 0
 
+/* Dependencies */
 #include <stdlib.h>
 
 /* Semantincs */
