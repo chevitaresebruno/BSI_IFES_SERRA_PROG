@@ -8,21 +8,87 @@ typedef struct bt BinaryTree;
 struct bt
 {
     DoubleNode* root;
+    cmpFunc cmp;
     unsigned int size;
 };
 
 
-BinaryTree* newBT()
+BinaryTree* newBT(cmpFunc cmp)
 {
-    BinaryTree* bt = (BinaryTree*)malloc(sizeof(BinaryTree)); 
+    BinaryTree* bt;
+    
+    if(cmp == NULL)
+        return NULL;
+        
+    bt = (BinaryTree*)malloc(sizeof(BinaryTree)); 
 
     if(bt == NULL)
         return NULL;
 
     bt->size = 0;
     bt->root = NULL;
+    bt->cmp = cmp;
+
+    return bt;
 }
 
+void btRecFree(DoubleNode* dn, freeFunc func)
+{
+    if(dn != NULL)
+    {
+        btRecFree(dn->lft, func);
+        btRecFree(dn->rgt, func);
+        func(dnFree(dn));
+    }
+}
+
+void btFFree(BinaryTree* bt, freeFunc func)
+{
+    if(bt == NULL || func == NULL)
+        return;
+
+    btRecFree(bt->root, func);
+    free(bt);
+}
+
+bool btSome(BinaryTree* bt, bool(*func)(void*))
+{
+    SimpleLinkedQueue* q;
+    DoubleNode* dn;
+
+    if(bt == NULL || func == NULL)
+        return false;
+
+    if(bt == NULL)
+        return false;
+
+    q = newSlq();
+    if(q == NULL)
+        return false;
+
+    if(slqAdd(q, bt->root) == false)
+        goto ERROR_LABEL;
+
+    dn = (DoubleNode*)slqPop(q);
+
+    while(dn != NULL)
+    {
+        if(func(dn->v) == true)
+            return true;
+        if(dn->lft != NULL)
+            if(slqAdd(q, dn->lft) == false) goto ERROR_LABEL;
+        if(dn->rgt != NULL)
+            if(slqAdd(q, dn->rgt) == false) goto ERROR_LABEL;   
+        
+        dn = slqPop(q);
+    }
+
+    slqNFree(q);
+    
+    ERROR_LABEL:
+    slqNFree(q);
+    return false;
+}
 
 /* Unsafe Function */
 bool recAddV(DoubleNode* dn, void* v, cmpFunc cmpF)
@@ -64,7 +130,7 @@ bool recAddV(DoubleNode* dn, void* v, cmpFunc cmpF)
 }
 
 
-bool btAdd(BinaryTree* bt, void* nv, cmpFunc cmpF)
+bool btAdd(BinaryTree* bt, void* nv)
 {
     if(bt == NULL)
         return false;
@@ -77,7 +143,7 @@ bool btAdd(BinaryTree* bt, void* nv, cmpFunc cmpF)
     else
     {
         if(bt->root == NULL) return false;
-        if(recAddV(bt->root, nv, cmpF) == false)
+        if(recAddV(bt->root, nv, bt->cmp) == false)
             return false;
     }
 
@@ -86,7 +152,24 @@ bool btAdd(BinaryTree* bt, void* nv, cmpFunc cmpF)
 }
 
 
-void* btPop(BinaryTree* bt, const void* v, cmpFunc func)
+DoubleNode** btPBRec(DoubleNode** dn, const void* v, cmpFunc func)
+{
+    DoubleNode** aux = NULL;
+
+    if(func((*dn)->v, v) == equal)
+        return dn;
+    
+    if((*dn)->lft != NULL)
+        aux = btPBRec(&(*dn)->lft, v, func);
+    if(aux != NULL)
+        return aux;
+
+    if((*dn)->rgt != NULL)
+        aux = btPBRec(&(*dn)->rgt, v, func);
+    return aux;
+}
+
+void* btPopBy(BinaryTree* bt, const void* v, cmpFunc func)
 {
     DoubleNode* dn; 
     DoubleNode** bf;
@@ -95,10 +178,55 @@ void* btPop(BinaryTree* bt, const void* v, cmpFunc func)
     if(bt == NULL || bt->root == NULL || func == NULL)
         return NULL;
 
+    bf = btPBRec(&(bt->root), v, func);
+    if(bf == NULL)
+        return NULL;
+
+    dn = bt->root;
+
+    r = (*bf)->v; /* get the value should be returned */
+    if(dn->lft == NULL)
+        { if(dn->rgt == NULL) { *bf = NULL; goto END; } }
+    else
+        if(dn->rgt == NULL) { *bf = dn->lft; goto END; }
+    
+    /* Only if it is a complete subtree */
+    if(dn->lft->rgt == NULL)
+    {
+        *bf = dn->lft;
+        (*bf)->rgt = dn->rgt;
+        goto END;
+    } 
+
+    dn = dn->lft;
+    while(dn->rgt->rgt != NULL)
+        dn = dn->rgt;
+    (*bf)->v = dn->rgt->v;
+    
+    bf = dn->rgt; 
+    dn->rgt = NULL;
+    dn = bf;
+
+    END:
+    dnFree(dn);
+    bt->size--;
+    return r;
+}
+
+void* btPop(BinaryTree* bt, const void* v)
+{
+    DoubleNode* dn; 
+    DoubleNode** bf;
+    void* r;
+    
+    if(bt == NULL || bt->root == NULL || bt->cmp == NULL)
+        return NULL;
+
+    bf = &(bt->root);
     dn = bt->root;
     while(dn != NULL)
     {
-        switch(func(v, dn->v))
+        switch(bt->cmp(v, dn->v))
         {
             case equal:
                 goto CONTINUE;
@@ -146,7 +274,6 @@ void* btPop(BinaryTree* bt, const void* v, cmpFunc func)
     return r;
 }
 
-
 unsigned int btSize(const BinaryTree* bt)
 {
     if(bt == NULL)
@@ -156,26 +283,27 @@ unsigned int btSize(const BinaryTree* bt)
 }
 
 
-void* btSeacrh(BinaryTree* bt, void* v, cmpFunc cmpF)
+void* btSearch(BinaryTree* bt, void* v)
 {
     DoubleNode* dn;
+    int cmpR;
 
-    if(bt == NULL || bt->root == NULL)
+    if(bt == NULL || bt->root == NULL || bt->cmp == NULL)
         return NULL;
 
     dn = bt->root;
 
     while(dn != NULL)
     {
-        switch(cmpF(dn->v, v))
+        switch(bt->cmp(dn->v, v))
         {
             case equal:
                 return dn->v;
             case lessThan:
-                dn = dn->lft;
+                dn = dn->rgt;
                 break;
             case greaterThan:
-                dn = dn->rgt;
+                dn = dn->lft;
                 break;
             case nullPointer:
                 return NULL;
@@ -183,6 +311,30 @@ void* btSeacrh(BinaryTree* bt, void* v, cmpFunc cmpF)
     }
 
     return NULL;
+}
+
+void* btSRec(DoubleNode* dn, void* v, cmpFunc func)
+{
+    void* r = NULL;
+    if(func(dn->v, v) == equal)
+        return dn->v;
+
+    if(dn->lft != NULL)
+        r = btSRec(dn->lft, v, func);
+    if(r != NULL)
+        return r;
+    if(dn->rgt != NULL)
+        r = btSRec(dn->rgt, v, func);
+
+    return r;
+}
+
+
+void* btSearchBy(BinaryTree* bt, void* v, cmpFunc func)
+{
+    if(bt == NULL || bt->root == NULL || v == NULL || func == NULL)
+        return NULL;
+    return btSRec(bt->root, v, func);
 }
 
 
@@ -196,9 +348,7 @@ unsigned int recH(const DoubleNode* dn, unsigned int hg)
     if(dn->rgt != NULL)
         h2 = recH(dn->rgt, hg+1);
 
-    if(h1 > h2)
-        return h1;
-    return h2;
+    return h1 > h2 ? h1 : h2;
 }
 
 

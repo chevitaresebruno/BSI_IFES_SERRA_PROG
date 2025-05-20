@@ -3,8 +3,13 @@
 *.venv/
 *.venv
 *target/
+*bin/
 
 *.rar
+*.7zip
 *.zip
+*.o
+*.dll
+*.exe
 
 *__pycache__/

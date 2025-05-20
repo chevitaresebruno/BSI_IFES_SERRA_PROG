@@ -1,5 +1,5 @@
-#ifndef SHARED_H
-#define SHARED_H 0
+#ifndef SHARE_H
+#define SHARE_H 0
 
 /* Dependencies */
 #include <stdlib.h>
